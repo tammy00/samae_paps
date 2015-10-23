@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -14,6 +16,7 @@ class ContactForm extends Model
     public $email;
     public $subject;
     public $body;
+    //public $uploadFiler;
     public $verifyCode;
 
     /**
@@ -54,6 +57,7 @@ class ContactForm extends Model
                 ->setFrom([$this->email => $this->name])
                 ->setSubject($this->subject)
                 ->setTextBody($this->body)
+                //->setUploadFiler($this->uploadFiler)
                 ->send();
 
             return true;

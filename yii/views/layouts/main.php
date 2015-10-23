@@ -40,7 +40,6 @@ AppAsset::register($this);
             ['label' => 'Monitoria', 'url' => ['/site/about']],
             ['label' => 'Aproveitamento de Estudos', 'url' => ['/site/contact']],
             ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [

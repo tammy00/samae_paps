@@ -2,43 +2,75 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+class User extends \yii\db\ActiveRecord
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
+    private $_id, $_username;
 
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'secretaria',
-            'password' => 'secretaria',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'aluno',
-            'password' => 'aluno',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-
-    ];
-
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentity($id)
+    public static function tableName()  // Adicionado
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return 'usuario';
     }
 
-    /**
+public function authenticate() 
+{
+    $record = User::model()->findByAttributes(array('login'=>$this->username)); 
+    if($record === null)
+    {
+        $this->errorCode = self::ERROR_USERNAME_INVALID; 
+    } 
+    elseif ($record->senha !== $this->password)
+    { 
+        $this->errorCode = self::ERROR_PASSWORD_INVALID; 
+    } 
+    else 
+    { 
+        $this->_id=$record->id; 
+        $this->username=$record->usuario; 
+        $this->setState('nome', $record->nome); 
+        $this->errorCode=self::ERROR_NONE; 
+    } 
+    return !$this->errorCode; 
+}
+
+    public function rules()
+    {
+        return [
+            [['login'], 'required', 'string', 'max' => 20],
+            [['senha'], 'required', 'string', 'max' => 128]
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'login' => 'Login',
+            'senha' => 'Senha'
+        ];
+    }   
+
+    /** INCLUDE USER LOGIN VALIDATION FUNCTIONS**/
+        /**
      * @inheritdoc
      */
+
+/*
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }   */
+    // Velho findIdentity  
+    /* public static function findIdentity($id)
+    {
+        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+    }  */
+
+    // Adicionado
+    /* public static function findIdentityByAccessToken($token, $type = null)
+    {
+          return static::findOne(['access_token' => $token]);
+    }  */
+/*
     public static function findIdentityByAccessToken($token, $type = null)
     {
         foreach (self::$users as $user) {
@@ -48,7 +80,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
         }
 
         return null;
-    }
+    }    */
 
     /**
      * Finds user by username
@@ -56,7 +88,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @param  string      $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    /*public static function findByUsername($username)
     {
         foreach (self::$users as $user) {
             if (strcasecmp($user['username'], $username) === 0) {
@@ -65,7 +97,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
         }
 
         return null;
-    }
+    } */
 
     /**
      * @inheritdoc
@@ -75,30 +107,13 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
         return $this->id;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey()
+        public function validatePassword($senha)
     {
-        return $this->authKey;
+        return $this->senha === md5($senha);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function validateAuthKey($authKey)
+    public static function findByUsername($login)
     {
-        return $this->authKey === $authKey;
-    }
-
-    /**
-     * Validates password
-     *
-     * @param  string  $password password to validate
-     * @return boolean if password provided is valid for current user
-     */
-    public function validatePassword($password)
-    {
-        return $this->password === $password;
+        return static::findOne(['login' => $login]);
     }
 }

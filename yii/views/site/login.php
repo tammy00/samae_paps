@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\models\LoginForm */
+ // @var $model app\models\LoginForm 
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
@@ -24,11 +24,11 @@ $this->title = 'Login';
         ],
     ]); ?>
 
-        <?= $form->field($model, 'username') ?>
+        <?= $form->field($model, 'login') ?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'senha')->passwordInput() ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
+        <?= $form->field($model, 'lembrar')->checkbox([
             'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
         ]) ?>
 
