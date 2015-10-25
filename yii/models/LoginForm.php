@@ -8,6 +8,11 @@ use yii\base\Model;
 /**
  * LoginForm is the model behind the login form.
  */
+
+/**
+ * Tammy
+ */
+
 class LoginForm extends Model
 {
     public $login;
@@ -16,7 +21,7 @@ class LoginForm extends Model
     public $esqueciSenha = true;
 
     private $_user = false; 
-
+    private $_word = false; 
 
     /**
      * @return array the validation rules.
@@ -44,40 +49,44 @@ class LoginForm extends Model
 
     public function validatePassword($attribute, $params)
     {
-        if (!$this->hasErrors()) {
+        if (!$this->hasErrors()) 
+        {
             $user = $this->getUser();
-
-            if (!$user || !$user->validatePassword($this->senha)) {
-                $this->addError($attribute, 'Senha incorreta!');
+            if ( $user === false ) 
+            {
+                $this->addError($attribute, 'Usuário incorreto!');
             }
+            else{
+                $word = $this->getWord();
+                if ( $word === false ) $this->addError($attribute, 'Senha incorreta!');
+            } 
         }
+        //else $this->addError($attribute, 'Os campos devem ser preenchidos!');   
     }
 
-    
+    public function getUser()
+    {
+        if ($this->_user === false) {
+            $this->_user = Usuario::findByUsername($this->login); 
+        }
 
-    /**
-     * Logs in a user using the provided username and password.
-     * @return boolean whether the user is logged in successfully
-     */
+        return $this->_user;
+    }
+
+    public function getWord()
+    {
+        if ($this->_word === false) {
+            $this->_word = Usuario::findBySenha($this->senha); 
+        }
+
+        return $this->_word;
+    }
+
     public function login()
     {
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->lembrar ? 3600*24*30 : 0);
         }
         return false;
-    }
-
-    /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
-     */
-    public function getUser()
-    {
-        if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->login); 
-        }
-
-        return $this->_user;
     }
 }

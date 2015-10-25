@@ -4,16 +4,27 @@
 /* @var $form yii\bootstrap\ActiveForm */
  // @var $model app\models\LoginForm 
 
+/**
+ * Tammy
+ */
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use app\controllers\UsuarioController;
+use app\models\Usuario;
 
 $this->title = 'Login';
 /* $this->params['breadcrumbs'][] = $this->title; */
 ?>
+
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Preencha os campos abaixo para logar:</p>
+    <p>Preencha os campos abaixo para logar.</p>
+
+    <div class="col-lg-offset-1" style="color:#999;">
+        <?= Html::a('Cadastrar Novo Usuário','?r=usuario/novousuario') ?>
+    </div> 
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
@@ -41,4 +52,5 @@ $this->title = 'Login';
         </div>
 
     <?php ActiveForm::end(); ?>
+
 </div>

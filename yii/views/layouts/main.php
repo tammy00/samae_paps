@@ -3,6 +3,10 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+/**
+ * Tammy
+ */
+
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -38,12 +42,12 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Monitoria', 'url' => ['/site/about']],
-            ['label' => 'Aproveitamento de Estudos', 'url' => ['/site/contact']],
+            ['label' => 'Aproveitamento de Estudos', 'url' => ['/site/aproveitamento']],
             ['label' => 'About', 'url' => ['/site/about']],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    'label' => 'Logout (' . Yii::$app->user->identity->login . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ],

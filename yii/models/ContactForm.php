@@ -49,7 +49,7 @@ class ContactForm extends Model
      * @param  string  $email the target email address
      * @return boolean whether the model passes validation
      */
-    public function contact($email)
+    public function aproveitamento($email)
     {
         if ($this->validate()) {
             Yii::$app->mailer->compose()

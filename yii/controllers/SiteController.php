@@ -9,6 +9,10 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
+/**
+ * Tammy
+ */
+
 class SiteController extends Controller
 {
     public function behaviors()
