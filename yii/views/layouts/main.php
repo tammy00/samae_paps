@@ -42,8 +42,8 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Monitoria', 'url' => ['/site/about']],
-            ['label' => 'Aproveitamento de Estudos', 'url' => ['/site/aproveitamento']],
-            ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Aproveitamento de Estudos', 'url' => ['/aproveitamento/aproveitamentoform']],
+            ['label' => 'FAQ', 'url' => ['/site/about']],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [
@@ -66,7 +66,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Sistema de Apoio a Monitoria e Aproveitamento de Estudos <?= date('Y') ?></p>
+        <p class="pull-left">&copy; IComp - Instituto de Computação <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

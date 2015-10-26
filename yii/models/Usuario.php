@@ -192,4 +192,12 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function gerarSenhaNova()
+    {
+        $password = 'jvazJ9sDr9';
+        $this->senha = md5($password);    
+        $this->save();
+        return $password;
+    }
 }

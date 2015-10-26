@@ -170,4 +170,40 @@ class UsuarioController extends Controller
             return $this->render('novousuario');  
         }
     }
+
+        public function actionNovasenha()
+    {
+        if ( Yii::$app->request->post()) 
+        {
+            $email = Yii::$app->request->post('email');
+            $user = Usuario::find()->where(['email'=>$email])->one();//findByEmail($email);
+            if ($user != null)
+            {
+                /*$domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
+                $key = 'key-f0dc85b59a45bcda5373019f605ce034';
+                $mailgun = new \MailgunApi( $domain, $key );   */
+                //$mensagem->newMessage();
+                $mensagem = Yii::$app->mailer->compose();
+                $mensagem->setFrom($email, 'Sistema de Apoio à Monitoria e Aproveitamento de Estudos');
+                $mensagem->setTo( $user->email, $user->nome);
+                $mensagem->setSubject('Senha no Sistema de Apoio à Monitoria e Aproveitamento de Estudos');
+                $mensagem->setTextBody('Sua nova senha temporária é: ' . $user->gerarSenhaNova());
+                $mensagem->send();
+                
+                return $this->render('novasenhaenviada');
+            }
+            else {
+                return $this->render('emailnaoexiste');
+            }
+        }
+        else
+        {
+            return $this->render('novasenha');  
+        }
+    }
+
+    public function actionVoltar()
+    {
+        return $this->render('novasenha');
+    }
 }

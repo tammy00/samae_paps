@@ -21,10 +21,7 @@ $this->title = 'Login';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Preencha os campos abaixo para logar.</p>
-
-    <div class="col-lg-offset-1" style="color:#999;">
-        <?= Html::a('Cadastrar Novo Usuário','?r=usuario/novousuario') ?>
-    </div> 
+    <p>Opção para o administrador: <?= Html::a('Cadastrar Novo Usuário','?r=usuario/novousuario') ?>. </p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
@@ -38,6 +35,10 @@ $this->title = 'Login';
         <?= $form->field($model, 'login') ?>
 
         <?= $form->field($model, 'senha')->passwordInput() ?>
+
+        <div class="col-lg-offset-1" style="color:#999;">
+            <?= Html::a('Esqueci minha senha!','?r=usuario/novasenha') ?>
+        </div> 
 
         <?= $form->field($model, 'lembrar')->checkbox([
             'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
