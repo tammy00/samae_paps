@@ -42,8 +42,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Monitoria', 'url' => ['/site/about']],
-            ['label' => 'Aproveitamento de Estudos', 'url' => ['/aproveitamento/aproveitamentoform']],
-            ['label' => 'FAQ', 'url' => ['/site/about']],
+            ['label' => 'Aproveitamento de Estudos', 'url' => ['/aproveitamento/create']],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [

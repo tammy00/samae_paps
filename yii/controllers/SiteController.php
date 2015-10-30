@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Aproveitamento;
 
 /**
  * Tammy
@@ -89,7 +90,27 @@ class SiteController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
-    }
+    }/*
+
+    public function actionFormulario()
+    {
+        $data = new\DateTime('now');
+        $hoje = $data->format('Y-m-d');
+        $inicio = Aproveitamento::find()->where(['dataInicio' >= $hoje])->one();
+
+        if ( $inicio != null ) 
+        {
+            $model = new Aproveitamento();
+            if ($model->load(Yii::$app->request->post())) 
+            {
+                Yii::$app->session->setFlash('formularioSubtmetido');
+                return $this->refresh();
+            }
+            else return $this->render('aproveitamento/formulario', [
+                    'model' => $model,
+                 ]);
+        }
+    }  */
 
     public function actionAbout()
     {
