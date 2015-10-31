@@ -41,8 +41,8 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Monitoria', 'url' => ['/site/about']],
-            ['label' => 'Aproveitamento de Estudos', 'url' => ['/aproveitamento/create']],
+            ['label' => 'Monitoria', 'url' => ['/monitoria/index']],
+            ['label' => 'Aproveitamento de Estudos', 'url' => ['/aproveitamento/index']],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [

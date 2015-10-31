@@ -3,21 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Aproveitamento;
-use app\models\AproveitamentoSearch;
+use app\models\Disciplina;
+use app\models\DisciplinaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Aluno;
-use yii\filters\AccessControl;
-use yii\helpers\Html;
-use app\models\CursoSearch;
-use yii\helpers\ArrayHelper;
 
 /**
- * AproveitamentoController implements the CRUD actions for Aproveitamento model.
+ * DisciplinaController implements the CRUD actions for Disciplina model.
  */
-class AproveitamentoController extends Controller
+class DisciplinaController extends Controller
 {
     public function behaviors()
     {
@@ -32,12 +27,12 @@ class AproveitamentoController extends Controller
     }
 
     /**
-     * Lists all Aproveitamento models.
+     * Lists all Disciplina models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AproveitamentoSearch();
+        $searchModel = new DisciplinaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +42,7 @@ class AproveitamentoController extends Controller
     }
 
     /**
-     * Displays a single Aproveitamento model.
+     * Displays a single Disciplina model.
      * @param integer $id
      * @return mixed
      */
@@ -59,30 +54,25 @@ class AproveitamentoController extends Controller
     }
 
     /**
-     * Creates a new Aproveitamento model.
+     * Creates a new Disciplina model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Aproveitamento();
-        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'id', 'nome');
+        $model = new Disciplina();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) 
-        {
-            return $this->redirect(['view', 'id' => $model->idAluno]);
-        } 
-        else 
-        {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->ID]);
+        } else {
             return $this->render('create', [
                 'model' => $model,
-                'arrayDeCurso' => $arrayDeCurso,
             ]);
         }
     }
 
     /**
-     * Updates an existing Aproveitamento model.
+     * Updates an existing Disciplina model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -90,23 +80,18 @@ class AproveitamentoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'id', 'nome');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) 
-        {
-            return $this->redirect(['view', 'id' => $model->idAluno]);
-        } 
-        else 
-        {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->ID]);
+        } else {
             return $this->render('update', [
                 'model' => $model,
-                'arrayDeCurso' => $arrayDeCurso,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Aproveitamento model.
+     * Deletes an existing Disciplina model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -118,25 +103,19 @@ class AproveitamentoController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionStatus($id)
-    {
-        return $this->redirect(['status']);
-    }
-
     /**
-     * Finds the Aproveitamento model based on its primary key value.
+     * Finds the Disciplina model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Aproveitamento the loaded model
+     * @return Disciplina the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Aproveitamento::findOne($id)) !== null) {
+        if (($model = Disciplina::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('A página requisitada não existe.');
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 }

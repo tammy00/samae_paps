@@ -1,9 +1,11 @@
 <?php
 
 /* @var $this yii\web\View */
+use yii\helpers\Html;
 
 $this->title = 'Sistema de Apoio a Monitoria e Aproveitamento de Estudos';
 ?>
+
 <div class="site-index">
 
     <div class="jumbotron">
@@ -11,7 +13,8 @@ $this->title = 'Sistema de Apoio a Monitoria e Aproveitamento de Estudos';
 
         <p class="lead"></p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">MONITORIA</a></p>
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Aproveitamento de Estudos</a></p>
+        <p> <?= Html::a('MONITORIA', ['/monitoria/index'], ['class'=>'btn btn-primary']) ?></p>
+        <p> <?= Html::a('Aproveitamento de Estudos', ['/aproveitamento/index'], ['class'=>'btn btn-primary']) ?> </p>
+        <p> <?= Html::a('Cadastrar usuário', ['/usuario/create'], ['class'=>'btn btn-primary']) ?></p>
     </div>
 </div>

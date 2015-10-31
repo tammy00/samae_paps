@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\swiftmailer\Mailer;
 
 /**
  * UsuarioController implements the CRUD actions for Usuario model.

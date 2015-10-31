@@ -21,7 +21,6 @@ $this->title = 'Login';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Preencha os campos abaixo para logar.</p>
-    <p>Opção para o administrador: <?= Html::a('Cadastrar Novo Usuário','?r=usuario/novousuario') ?>. </p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',

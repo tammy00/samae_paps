@@ -195,7 +195,11 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
 
     public function gerarSenhaNova()
     {
-        $password = 'jvazJ9sDr9';
+        
+        $abc_nums = '0A1a2B3b4C5c6D7d8E9eFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
+        $chave = substr(str_shuffle(str_repeat($abc_nums, 5)), 0, strlen($abc_nums) );
+        $chave = substr($chave, 0, 10) . '_' . rand(1,10000);
+        $password = $chave;
         $this->senha = md5($password);    
         $this->save();
         return $password;

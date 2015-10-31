@@ -27,6 +27,14 @@ $config = [
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => false,
+            'viewPath' => 'yii2Basic',
+            'mailer' => 'smtp',
+            'host' => 'smtp.gmail.com',
+            'port' => '456',
+            'smtpsecure' => 'ssl',
+            'smtpauth' => true,
+            'username' => 'sistemas@icomp.ufam.edu.br',
+            'password' => 'Si102030',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
