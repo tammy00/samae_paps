@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "disciplina".
  *
  * @property integer $ID
- * @property integer $CodDisciplina
+ * @property string $CodDisciplina
  * @property string $Nome
  * @property string $IDCurso
  * @property integer $CargaHoraria
@@ -38,9 +38,9 @@ class Disciplina extends \yii\db\ActiveRecord
     {
         return [
             [['CodDisciplina', 'Nome', 'IDCurso', 'CargaHoraria', 'Credito', 'Periodo', 'Laboratorio', 'QTO', 'QAT', 'CodTurma', 'CodProfessor', 'Monitoria'], 'required'],
-            [['CodDisciplina', 'CargaHoraria', 'Credito', 'Laboratorio', 'QTO', 'QAT', 'CodProfessor', 'Monitoria'], 'integer'],
+            [['CargaHoraria', 'Credito', 'Laboratorio', 'QTO', 'QAT', 'CodProfessor', 'Monitoria'], 'integer'],
+            [['CodDisciplina', 'IDCurso', 'Periodo'], 'string', 'max' => 6],
             [['Nome'], 'string', 'max' => 120],
-            [['IDCurso', 'Periodo'], 'string', 'max' => 6],
             [['CodTurma'], 'string', 'max' => 4]
         ];
     }

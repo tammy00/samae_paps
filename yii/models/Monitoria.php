@@ -29,10 +29,10 @@ class Monitoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['numProcesso', 'IDDisciplina', 'Matricula', 'IDProfessor', 'Bolsista'], 'required'],
+            [['numProcesso', 'CodDisciplina', 'Matricula', 'IDProfessor', 'Bolsista'], 'required'],
             [['Matricula', 'IDProfessor', 'Bolsista'], 'integer'],
             [['numProcesso'], 'string', 'max' => 15],
-            [['IDDisciplina'], 'string', 'max' => 6]
+            [['CodDisciplina'], 'string', 'max' => 6]
         ];
     }
 
@@ -43,10 +43,10 @@ class Monitoria extends \yii\db\ActiveRecord
     {
         return [
             'numProcesso' => 'Número de processo',
-            'IDDisciplina' => 'ID da Disciplina',
+            'CodDisciplina' => 'ID da Disciplina',
             'Matricula' => 'Matrícula',
             'IDProfessor' => 'ID do Professor',
-            'Bolsista' => 'Bolsista?',
+            'Bolsista' => 'Bolsas em Monitoria para a(s) disciplina(s) correspondente(s)',
         ];
     }
 

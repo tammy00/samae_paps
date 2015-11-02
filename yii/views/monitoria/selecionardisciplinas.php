@@ -13,14 +13,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Monitoria', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="aproveitamento-form">
+<div class="monitoria-selectform">
 
     <?php $form = ActiveForm::begin(); ?>
 
-
-     <?= $form->field($model, 'Bolsista')->checkboxList([$arrayDeDisciplina]); ?>
-
-
+     <?=  $form->field($model, 'Bolsista')->checkboxList($arrayDeDisciplina);  ?> 
 
     <div class="form-group">
         <?= Html::submitButton('Salvar', ['class' => 'btn btn-primary']) ?>

@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\Disciplina;
 use app\models\DisciplinaSearch;
 use yii\helpers\ArrayHelper;
-
+use yii\db\Command;
 /**
  * MonitoriaController implements the CRUD actions for Monitoria model.
  */
@@ -118,22 +118,36 @@ class MonitoriaController extends Controller
         if (($model = Monitoria::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página requisitada não existe.');
         }
     }
 
-    public function actionSelecionarDisciplinas ()
+    public function actionSelecionardisciplinas ()
     {
         $model = new Monitoria();
         $arrayDeDisciplina = ArrayHelper::map(DisciplinaSearch::find()->all(), 'ID', 'Nome');
-        if ($model->load(Yii::$app->request->post()))
+
+        if ($model->load(Yii::$app->request->post() ) )
         {
-            $model->Bolsista = Yii::$app->request->post('Bolsista');
-            return $this->render('update', ['model' => $model]);  
+            $disc = new Disciplina();
+            $selecoes = [];
+
+            foreach ($arrayDeDisciplina as $disc->Monitoria)
+            {
+                $selecoes[] = ['' => $disc->Monitoria];
+            }
+            Yii::$app->db->createCommand()->batchInsert(Disciplina::tableName(), 
+                [''], 
+                $selecoes
+            )->execute();
+            return $this->render('deucerto'); // Seria legal colocar uma comparação aqui para definir se renderiza ou não a página "deucerto"...
         }
         else 
         {
-            return $this->render('selecionardisciplinas', ['arrayDeDisciplina' => $arrayDeDisciplina]);
-        }
+            return $this->render('selecionardisciplinas', [
+                'model'=>$model,
+                'arrayDeDisciplina'=>$arrayDeDisciplina,
+                ]);
+        }  
     }
 }
