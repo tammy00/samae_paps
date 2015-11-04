@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
 
-$this->title = $model->IDProfessor;
+$this->title = $model->Matricula;
 $this->params['breadcrumbs'][] = ['label' => 'Monitorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['Atualizar', 'id' => $model->IDProfessor], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['Deletar', 'id' => $model->IDProfessor], [
+        <?= Html::a('Update', ['Atualizar', 'id' => $model->Matricula], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['Deletar', 'id' => $model->Matricula], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Confirma que quer apagar este item?',
@@ -28,11 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            //'numProcesso',
+            'numProcesso',
             'CodDisciplina',
             'Matricula',
             'IDProfessor',
-            'Bolsista',
+            //'Bolsista',
         ],
     ]) ?>
 

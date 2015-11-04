@@ -7,9 +7,9 @@ use app\models\ProfessorSearch;
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
 
-$this->title = 'Atualização de registro: ' . ' ' . $model->IDProfessor;
+$this->title = 'Atualização de registro: ' . ' ' . $model->Matricula;
 $this->params['breadcrumbs'][] = ['label' => 'Monitorias', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->IDProfessor, 'url' => ['view', 'id' => $model->IDProfessor]];
+$this->params['breadcrumbs'][] = ['label' => $model->Matricula, 'url' => ['view', 'id' => $model->Matricula]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="monitoria-update">

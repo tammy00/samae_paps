@@ -29,7 +29,7 @@ class Monitoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['numProcesso', 'CodDisciplina', 'Matricula', 'IDProfessor', 'Bolsista'], 'required'],
+            [['CodDisciplina', 'Matricula', 'IDProfessor'], 'required'],
             [['Matricula', 'IDProfessor', 'Bolsista'], 'integer'],
             [['numProcesso'], 'string', 'max' => 15],
             [['CodDisciplina'], 'string', 'max' => 6]
@@ -46,12 +46,12 @@ class Monitoria extends \yii\db\ActiveRecord
             'CodDisciplina' => 'Disciplina',
             'Matricula' => 'Matrícula',
             'IDProfessor' => 'Professor',
-            'Bolsista' => 'Bolsista?',
+            'Bolsista' => 'Bolsista',
         ];
     }
 
    public function afterFind()
-    { /*
+    { 
         switch ($this->IDProfessor) {
              case 1: 
                  $this->IDProfessor = 'ARILO CLÁUDIO DIAS NETO';
@@ -65,9 +65,9 @@ class Monitoria extends \yii\db\ActiveRecord
              case 4: 
                  $this->IDProfessor = 'EDSON NASCIMENTO SILVA JÚNIOR';
                  break;
-        } */
-        $this->IDProfessor = $this->Nome;
-        switch ($this->Bolsista) 
+        } 
+        //$this->IDProfessor = $this->Nome;  
+        /* switch ($this->Bolsista) 
         {
             case 1: 
                 $this->Bolsista = 'Sim';
@@ -75,7 +75,7 @@ class Monitoria extends \yii\db\ActiveRecord
             case 0: 
                 $this->Bolsista = 'Não';
                 break;
-        }
+        }  */  /*
         switch ($this->Laboratorio) 
         {
             case 1: 
@@ -84,6 +84,6 @@ class Monitoria extends \yii\db\ActiveRecord
             case 0: 
                 $this->Laboratorio = 'Não';
                 break;
-        }
+        }  */
     }     
 }
