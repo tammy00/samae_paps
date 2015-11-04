@@ -43,12 +43,47 @@ class Monitoria extends \yii\db\ActiveRecord
     {
         return [
             'numProcesso' => 'Número de processo',
-            'CodDisciplina' => 'ID da Disciplina',
+            'CodDisciplina' => 'Disciplina',
             'Matricula' => 'Matrícula',
-            'IDProfessor' => 'ID do Professor',
-            'Bolsista' => 'Bolsas em Monitoria para a(s) disciplina(s) correspondente(s)',
+            'IDProfessor' => 'Professor',
+            'Bolsista' => 'Bolsista?',
         ];
     }
 
-    
+   public function afterFind()
+    { /*
+        switch ($this->IDProfessor) {
+             case 1: 
+                 $this->IDProfessor = 'ARILO CLÁUDIO DIAS NETO';
+                 break;
+             case 2: 
+                 $this->IDProfessor = 'EDLENO SILVA DE MOURA';
+                 break;
+             case 3: 
+                 $this->IDProfessor = 'CÉSAR AUGUSTO VIANA MELO';
+                 break;
+             case 4: 
+                 $this->IDProfessor = 'EDSON NASCIMENTO SILVA JÚNIOR';
+                 break;
+        } */
+        $this->IDProfessor = $this->Nome;
+        switch ($this->Bolsista) 
+        {
+            case 1: 
+                $this->Bolsista = 'Sim';
+                break;
+            case 0: 
+                $this->Bolsista = 'Não';
+                break;
+        }
+        switch ($this->Laboratorio) 
+        {
+            case 1: 
+                $this->Laboratorio = 'Sim';
+                break;
+            case 0: 
+                $this->Laboratorio = 'Não';
+                break;
+        }
+    }     
 }
