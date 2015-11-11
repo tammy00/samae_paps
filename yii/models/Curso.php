@@ -7,9 +7,14 @@ use Yii;
 /**
  * This is the model class for table "curso".
  *
- * @property integer $id
+ * @property integer $ID
  * @property string $sigla
  * @property string $nome
+ *
+ * @property Aluno[] $alunos
+ * @property Aproveitamento[] $aproveitamentos
+ * @property Disciplina[] $disciplinas
+ * @property Monitoria[] $monitorias
  */
 class Curso extends \yii\db\ActiveRecord
 {
@@ -27,8 +32,6 @@ class Curso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id'], 'integer'],
             [['sigla'], 'string', 'max' => 4],
             [['nome'], 'string', 'max' => 50]
         ];
@@ -40,9 +43,41 @@ class Curso extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'ID' => 'ID',
             'sigla' => 'Sigla',
             'nome' => 'Nome',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAlunos()
+    {
+        return $this->hasMany(Aluno::className(), ['IDCurso' => 'ID']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAproveitamentos()
+    {
+        return $this->hasMany(Aproveitamento::className(), ['IDCurso' => 'ID']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDisciplinas()
+    {
+        return $this->hasMany(Disciplina::className(), ['IDCurso' => 'ID']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMonitorias()
+    {
+        return $this->hasMany(Monitoria::className(), ['IDCurso' => 'ID']);
     }
 }

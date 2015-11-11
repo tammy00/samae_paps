@@ -18,7 +18,7 @@ class DisciplinaSearch extends Disciplina
     public function rules()
     {
         return [
-            [['ID', 'IDCurso', 'IDProf', 'ch', 'credito', 'qat', 'qto', 'lab'], 'integer'],
+            [['ID', 'IDCurso', 'IDProf', 'ch', 'credito', 'qat', 'qto', 'lab', 'monitoria'], 'integer'],
             [['nome', 'codigo', 'periodo', 'codTurma'], 'safe'],
         ];
     }
@@ -64,6 +64,7 @@ class DisciplinaSearch extends Disciplina
             'qat' => $this->qat,
             'qto' => $this->qto,
             'lab' => $this->lab,
+            'monitoria' => $this->monitoria,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])

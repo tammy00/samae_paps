@@ -18,7 +18,7 @@ class CursoSearch extends Curso
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['ID'], 'integer'],
             [['sigla', 'nome'], 'safe'],
         ];
     }
@@ -56,7 +56,7 @@ class CursoSearch extends Curso
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
+            'ID' => $this->ID,
         ]);
 
         $query->andFilterWhere(['like', 'sigla', $this->sigla])

@@ -12,7 +12,7 @@ use app\models\Disciplina;
 use app\models\DisciplinaSearch;
 use yii\helpers\ArrayHelper;
 use yii\db\Command;
-use app\models\ProfessorSearch;
+use app\models\CursoSearch;
 
 /**
  * MonitoriaController implements the CRUD actions for Monitoria model.
@@ -66,14 +66,16 @@ class MonitoriaController extends Controller
     public function actionCreate()
     {
         $model = new Monitoria();
-        $arrayDeProfessor = ArrayHelper::map(ProfessorSearch::find()->all(), 'ID', 'Nome');
+        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
+        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'ID', 'nome');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'arrayDeProfessor' => $arrayDeProfessor,
+                'arrayDeCurso' => $arrayDeCurso,
+                'arrayDeDisc'  => $arrayDeDisc,
             ]);
         }
     }
@@ -87,14 +89,17 @@ class MonitoriaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $arrayDeProfessor = ArrayHelper::map(ProfessorSearch::find()->all(), 'ID', 'Nome');
+        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
+        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'ID', 'nome');
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'arrayDeProfessor' => $arrayDeProfessor,
+                'arrayDeCurso' => $arrayDeCurso,
+                'arrayDeDisc'  => $arrayDeDisc,
             ]);
         }
     }

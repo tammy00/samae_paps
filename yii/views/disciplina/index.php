@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'qto',
             // 'codTurma',
             // 'lab',
+            // 'monitoria',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

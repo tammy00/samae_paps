@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\CursoSearch;
+use app\models\DisciplinaSearch;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
@@ -16,11 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'IDAluno')->textInput() ?>
 
-    <?= $form->field($model, 'IDDisc')->textInput() ?>
+    <?= $form->field($model, 'IDCurso')->dropDownList([$arrayDeCurso],['prompt'=>'Selecione um curso']); ?>
 
-    <?= $form->field($model, 'IDCurso')->textInput() ?>
+    <?= $form->field($model, 'IDDisc')->dropDownList([$arrayDeDisc],['prompt'=>'Selecione a disciplina']); ?>
 
-    <?= $form->field($model, 'bolsa')->textInput() ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Cadastrar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

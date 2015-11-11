@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use app\models\ProfessorSearch;
+use app\models\CursoSearch;
+use app\models\DisciplinaSearch;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
@@ -18,7 +19,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'arrayDeProfessor' => $arrayDeProfessor,
+        'arrayDeCurso' => $arrayDeCurso,
+        'arrayDeDisc'  => $arrayDeDisc,
     ]) ?>
 
 </div>

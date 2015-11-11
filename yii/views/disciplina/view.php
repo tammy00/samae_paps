@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'qto',
             'codTurma',
             'lab',
+            'monitoria',
         ],
     ]) ?>
 
