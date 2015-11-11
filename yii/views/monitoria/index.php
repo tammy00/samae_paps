@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MonitoriaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Monitoria';
+$this->title = 'Monitorias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="monitoria-index">

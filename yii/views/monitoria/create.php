@@ -1,13 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
-use app\models\ProfessorSearch;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
 
-$this->title = 'Cadastro em Monitoria';
+$this->title = 'Inscrição para Monitoria';
 $this->params['breadcrumbs'][] = ['label' => 'Monitorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -17,7 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'arrayDeProfessor' => $arrayDeProfessor,
     ]) ?>
 
 </div>

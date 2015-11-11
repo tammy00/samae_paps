@@ -3,21 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Monitoria;
-use app\models\MonitoriaSearch;
+use app\models\Aluno;
+use app\models\AlunoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Disciplina;
-use app\models\DisciplinaSearch;
-use yii\helpers\ArrayHelper;
-use yii\db\Command;
-use app\models\ProfessorSearch;
 
 /**
- * MonitoriaController implements the CRUD actions for Monitoria model.
+ * AlunoController implements the CRUD actions for Aluno model.
  */
-class MonitoriaController extends Controller
+class AlunoController extends Controller
 {
     public function behaviors()
     {
@@ -32,12 +27,12 @@ class MonitoriaController extends Controller
     }
 
     /**
-     * Lists all Monitoria models.
+     * Lists all Aluno models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new MonitoriaSearch();
+        $searchModel = new AlunoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +42,7 @@ class MonitoriaController extends Controller
     }
 
     /**
-     * Displays a single Monitoria model.
+     * Displays a single Aluno model.
      * @param integer $id
      * @return mixed
      */
@@ -59,27 +54,25 @@ class MonitoriaController extends Controller
     }
 
     /**
-     * Creates a new Monitoria model.
+     * Creates a new Aluno model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Monitoria();
-        $arrayDeProfessor = ArrayHelper::map(ProfessorSearch::find()->all(), 'ID', 'Nome');
+        $model = new Aluno();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'arrayDeProfessor' => $arrayDeProfessor,
             ]);
         }
     }
 
     /**
-     * Updates an existing Monitoria model.
+     * Updates an existing Aluno model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,20 +80,18 @@ class MonitoriaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $arrayDeProfessor = ArrayHelper::map(ProfessorSearch::find()->all(), 'ID', 'Nome');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'arrayDeProfessor' => $arrayDeProfessor,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Monitoria model.
+     * Deletes an existing Aluno model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,15 +104,15 @@ class MonitoriaController extends Controller
     }
 
     /**
-     * Finds the Monitoria model based on its primary key value.
+     * Finds the Aluno model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Monitoria the loaded model
+     * @return Aluno the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Monitoria::findOne($id)) !== null) {
+        if (($model = Aluno::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

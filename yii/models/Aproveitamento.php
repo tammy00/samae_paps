@@ -3,27 +3,27 @@
 namespace app\models;
 
 use Yii;
-use yii\base\Model;
 
 /**
  * This is the model class for table "aproveitamento".
  *
- * @property string $NumProcesso
- * @property integer $idAluno
- * @property string $nomeAluno
+ * @property integer $ID
+ * @property string $numProcs
+ * @property integer $IDAluno
  * @property string $status
- * @property string $matriculaUFAM
- * @property string $cursoUFAM
- * @property integer $formaIngresso
- * @property string $disciplinaIES
- * @property string $codIES
- * @property integer $creditoIES
- * @property integer $horaIES
- * @property string $mediaIES
- * @property string $disciplinaUFAM
- * @property string $codUFAM
- * @property integer $creditoUFAM
- * @property integer $horaUFAM
+ * @property integer $IDCurso
+ * @property integer $formaIngreso
+ * @property integer $discIES
+ * @property integer $codIES
+ * @property integer $credIES
+ * @property integer $chIES
+ * @property integer $mediaIES
+ * @property integer $codUFAM
+ * @property integer $chUFAM
+ * @property integer $credUFAM
+ *
+ * @property Curso $iDCurso
+ * @property Aluno $iDAluno
  */
 class Aproveitamento extends \yii\db\ActiveRecord
 {
@@ -41,14 +41,10 @@ class Aproveitamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['NumProcesso', 'nomeAluno', 'matriculaUFAM'], 'required'],
-            [['idAluno', 'formaIngresso', 'creditoIES', 'horaIES', 'creditoUFAM', 'horaUFAM'], 'integer'],
-            [['NumProcesso', 'nomeAluno'], 'string', 'max' => 150],
-            [['status'], 'string', 'max' => 11],
-            [['matriculaUFAM'], 'string', 'max' => 8],
-            [['cursoUFAM', 'disciplinaIES'], 'string', 'max' => 120],
-            [['codIES'], 'string', 'max' => 10],
-            [['mediaIES'], 'string', 'max' => 4]
+            [['numProcs', 'IDAluno', 'IDCurso', 'formaIngreso', 'discIES', 'codIES', 'credIES', 'chIES', 'mediaIES', 'codUFAM', 'chUFAM', 'credUFAM'], 'required'],
+            [['IDAluno', 'IDCurso', 'formaIngreso', 'discIES', 'codIES', 'credIES', 'chIES', 'mediaIES', 'codUFAM', 'chUFAM', 'credUFAM'], 'integer'],
+            [['numProcs'], 'string', 'min' => 6, 'max' => 6],
+            [['status'], 'string', 'min' => 8, 'max' => 10]
         ];
     }
 
@@ -58,21 +54,37 @@ class Aproveitamento extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'NumProcesso' => 'Número do processo',
-            //'idAluno' => 'Id Aluno',
-            'nomeAluno' => 'Nome do Aluno',
-            //'status' => 'Status',
-            'matriculaUFAM' => 'Matrícula',  
-            'cursoUFAM' => 'Curso (UFAM)',
-            'formaIngresso' => 'Forma de Ingresso',
-            'disciplinaIES' => 'Disciplina cursada na IES',
-            'codIES' => 'Código da disciplina na IES',
-            'creditoIES' => 'Crédito da disciplina na IES',
-            'horaIES' => 'C.H. da disciplina na IES',
-            'mediaIES' => 'Média conceito',
-            'creditoUFAM' => 'Crédito da disciplina na UFAM',
-            'horaUFAM' => 'C.H. da disciplina na UFAM',  
+            'ID' => 'ID',
+            'numProcs' => 'Nº Processo',
+            'IDAluno' => 'ID Aluno',
+            'status' => 'Status do processo',
+            'IDCurso' => 'ID Curso',
+            'formaIngreso' => 'Forma de Ingreso',
+            'discIES' => 'Nome da disc. no IES',
+            'codIES' => 'Código da disc. no IES',
+            'credIES' => 'Crédito da disc. no IES',
+            'chIES' => 'Carga Horária da disc. no IES',
+            'mediaIES' => 'Média da disc. no IES',
+            'codUFAM' => 'Código da disc. na UFAM',
+            'chUFAM' => 'Carga Horária da disc. na UFAM',
+            'credUFAM' => 'Crédito da disc. na UFAM',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIDCurso()
+    {
+        return $this->hasOne(Curso::className(), ['ID' => 'IDCurso']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIDAluno()
+    {
+        return $this->hasOne(Aluno::className(), ['ID' => 'IDAluno']);
     }
 
     public function afterFind()

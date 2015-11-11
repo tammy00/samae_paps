@@ -66,14 +66,11 @@ class AproveitamentoController extends Controller
     public function actionCreate()
     {
         $model = new Aproveitamento();
-        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'id', 'nome');
+        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) 
-        {
-            return $this->redirect(['view', 'id' => $model->idAluno]);
-        } 
-        else 
-        {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->ID]);
+        } else {
             return $this->render('create', [
                 'model' => $model,
                 'arrayDeCurso' => $arrayDeCurso,
@@ -90,14 +87,11 @@ class AproveitamentoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'id', 'nome');
+        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) 
-        {
-            return $this->redirect(['view', 'id' => $model->idAluno]);
-        } 
-        else 
-        {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->ID]);
+        } else {
             return $this->render('update', [
                 'model' => $model,
                 'arrayDeCurso' => $arrayDeCurso,
@@ -118,11 +112,6 @@ class AproveitamentoController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionStatus($id)
-    {
-        return $this->redirect(['status']);
-    }
-
     /**
      * Finds the Aproveitamento model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -135,8 +124,7 @@ class AproveitamentoController extends Controller
         if (($model = Aproveitamento::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('A página requisitada não existe.');
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 }

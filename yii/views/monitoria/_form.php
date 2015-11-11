@@ -12,15 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'numProcesso')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'numProcs')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'CodDisciplina')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'IDAluno')->textInput() ?>
 
-    <?= $form->field($model, 'Matricula')->textInput() ?>
+    <?= $form->field($model, 'IDDisc')->textInput() ?>
 
-    <?= $form->field($model, 'IDProfessor')->dropDownList([$arrayDeProfessor],['prompt'=>'Selecione um professor']); ?>
+    <?= $form->field($model, 'IDCurso')->textInput() ?>
 
-    
+    <?= $form->field($model, 'bolsa')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Cadastrar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

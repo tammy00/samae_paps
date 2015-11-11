@@ -12,29 +12,27 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'CodDisciplina')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'Nome')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'IDCurso')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'IDCurso')->textInput() ?>
 
-    <?= $form->field($model, 'CargaHoraria')->textInput() ?>
+    <?= $form->field($model, 'IDProf')->textInput() ?>
 
-    <?= $form->field($model, 'Credito')->textInput() ?>
+    <?= $form->field($model, 'ch')->textInput() ?>
 
-    <?= $form->field($model, 'Periodo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'credito')->textInput() ?>
 
-    <?= $form->field($model, 'Laboratorio')->textInput() ?>
+    <?= $form->field($model, 'periodo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'QTO')->textInput() ?>
+    <?= $form->field($model, 'qat')->textInput() ?>
 
-    <?= $form->field($model, 'QAT')->textInput() ?>
+    <?= $form->field($model, 'qto')->textInput() ?>
 
-    <?= $form->field($model, 'CodTurma')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'codTurma')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'CodProfessor')->textInput() ?>
-
-    <?= $form->field($model, 'Monitoria')->textInput() ?>
+    <?= $form->field($model, 'lab')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

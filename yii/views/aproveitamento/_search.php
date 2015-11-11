@@ -15,51 +15,37 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'NumProcesso') ?>
+    <?= $form->field($model, 'ID') ?>
 
-    <?= $form->field($model, 'idAluno') ?>
+    <?= $form->field($model, 'numProcs') ?>
 
-    <?= $form->field($model, 'nomeAluno') ?>
+    <?= $form->field($model, 'IDAluno') ?>
 
     <?= $form->field($model, 'status') ?>
 
-    <?= $form->field($model, 'matriculaUFAM') ?>
+    <?= $form->field($model, 'IDCurso') ?>
 
-    <?php // echo $form->field($model, 'Endereco') ?>
+    <?php // echo $form->field($model, 'formaIngreso') ?>
 
-    <?php // echo $form->field($model, 'cursoUFAM') ?>
-
-    <?php // echo $form->field($model, 'telefoneResidencial') ?>
-
-    <?php // echo $form->field($model, 'telefoneComercial') ?>
-
-    <?php // echo $form->field($model, 'telefoneCelular') ?>
-
-    <?php // echo $form->field($model, 'formaIngresso') ?>
-
-    <?php // echo $form->field($model, 'disciplinaIES') ?>
+    <?php // echo $form->field($model, 'discIES') ?>
 
     <?php // echo $form->field($model, 'codIES') ?>
 
-    <?php // echo $form->field($model, 'creditoIES') ?>
+    <?php // echo $form->field($model, 'credIES') ?>
 
-    <?php // echo $form->field($model, 'horaIES') ?>
+    <?php // echo $form->field($model, 'chIES') ?>
 
     <?php // echo $form->field($model, 'mediaIES') ?>
 
-    <?php // echo $form->field($model, 'disciplinaUFAM') ?>
-
     <?php // echo $form->field($model, 'codUFAM') ?>
 
-    <?php // echo $form->field($model, 'creditoUFAM') ?>
+    <?php // echo $form->field($model, 'chUFAM') ?>
 
-    <?php // echo $form->field($model, 'horaUFAM') ?>
-
-    <?php // echo $form->field($model, 'bairro') ?>
+    <?php // echo $form->field($model, 'credUFAM') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Resetar', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -7,7 +7,6 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Monitoria;
 
-
 /**
  * MonitoriaSearch represents the model behind the search form about `app\models\Monitoria`.
  */
@@ -19,8 +18,8 @@ class MonitoriaSearch extends Monitoria
     public function rules()
     {
         return [
-            [['numProcesso', 'CodDisciplina'], 'safe'],
-            [['Matricula', 'IDProfessor', 'Bolsista'], 'integer'],
+            [['ID', 'IDAluno', 'IDDisc', 'IDCurso', 'bolsa'], 'integer'],
+            [['numProcs'], 'safe'],
         ];
     }
 
@@ -57,13 +56,14 @@ class MonitoriaSearch extends Monitoria
         }
 
         $query->andFilterWhere([
-            'Matricula' => $this->Matricula,
-            'IDProfessor' => $this->IDProfessor,
-            'Bolsista' => $this->Bolsista,
+            'ID' => $this->ID,
+            'IDAluno' => $this->IDAluno,
+            'IDDisc' => $this->IDDisc,
+            'IDCurso' => $this->IDCurso,
+            'bolsa' => $this->bolsa,
         ]);
 
-        $query->andFilterWhere(['like', 'numProcesso', $this->numProcesso])
-            ->andFilterWhere(['like', 'CodDisciplina', $this->CodDisciplina]);
+        $query->andFilterWhere(['like', 'numProcs', $this->numProcs]);
 
         return $dataProvider;
     }

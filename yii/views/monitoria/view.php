@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
 
-$this->title = $model->Matricula;
+$this->title = $model->numProcs;
 $this->params['breadcrumbs'][] = ['label' => 'Monitorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['Atualizar', 'id' => $model->Matricula], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['Deletar', 'id' => $model->Matricula], [
+        <?= Html::a('Atualizar', ['update', 'id' => $model->ID], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Deletar', ['delete', 'id' => $model->ID], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Confirma que quer apagar este item?',
+                'confirm' => 'Você tem certeza de que quer excluir este registro?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,11 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'numProcesso',
-            'CodDisciplina',
-            'Matricula',
-            'IDProfessor',
-            //'Bolsista',
+            'ID',
+            'numProcs',
+            'IDAluno',
+            'IDDisc',
+            'IDCurso',
+            'bolsa',
         ],
     ]) ?>
 

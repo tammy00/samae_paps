@@ -8,18 +8,21 @@ use Yii;
  * This is the model class for table "disciplina".
  *
  * @property integer $ID
- * @property string $CodDisciplina
- * @property string $Nome
- * @property string $IDCurso
- * @property integer $CargaHoraria
- * @property integer $Credito
- * @property string $Periodo
- * @property integer $Laboratorio
- * @property integer $QTO
- * @property integer $QAT
- * @property string $CodTurma
- * @property integer $CodProfessor
- * @property integer $Monitoria
+ * @property string $nome
+ * @property string $codigo
+ * @property integer $IDCurso
+ * @property integer $IDProf
+ * @property integer $ch
+ * @property integer $credito
+ * @property string $periodo
+ * @property integer $qat
+ * @property integer $qto
+ * @property string $codTurma
+ * @property integer $lab
+ *
+ * @property Aluno[] $alunos
+ * @property Curso $iDCurso
+ * @property Monitoria[] $monitorias
  */
 class Disciplina extends \yii\db\ActiveRecord
 {
@@ -37,11 +40,12 @@ class Disciplina extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['CodDisciplina', 'Nome', 'IDCurso', 'CargaHoraria', 'Credito', 'Periodo', 'Laboratorio', 'QTO', 'QAT', 'CodTurma', 'CodProfessor', 'Monitoria'], 'required'],
-            [['CargaHoraria', 'Credito', 'Laboratorio', 'QTO', 'QAT', 'CodProfessor', 'Monitoria'], 'integer'],
-            [['CodDisciplina', 'IDCurso', 'Periodo'], 'string', 'max' => 6],
-            [['Nome'], 'string', 'max' => 120],
-            [['CodTurma'], 'string', 'max' => 4]
+            [['nome', 'codigo', 'IDCurso', 'IDProf', 'ch', 'credito', 'periodo', 'qat', 'qto', 'codTurma'], 'required'],
+            [['IDCurso', 'IDProf', 'ch', 'credito', 'qat', 'qto', 'lab'], 'integer'],
+            [['nome'], 'string', 'max' => 150, 'min' => 20],
+            [['codigo'], 'string', 'max' => 7, 'min' => 6],
+            [['periodo'], 'string', 'max' => 6, 'min' => 6],
+            [['codTurma'], 'string', 'max' => 10, 'min' => 3]
         ];
     }
 
@@ -52,18 +56,46 @@ class Disciplina extends \yii\db\ActiveRecord
     {
         return [
             'ID' => 'ID',
-            'CodDisciplina' => 'Cod Disciplina',
-            'Nome' => 'Nome',
-            'IDCurso' => 'Idcurso',
-            'CargaHoraria' => 'Carga Horaria',
-            'Credito' => 'Credito',
-            'Periodo' => 'Periodo',
-            'Laboratorio' => 'Laboratorio',
-            'QTO' => 'Qto',
-            'QAT' => 'Qat',
-            'CodTurma' => 'Cod Turma',
-            'CodProfessor' => 'Cod Professor',
-            'Monitoria' => 'Monitoria',
+            'nome' => 'Nome da disciplina',
+            'codigo' => 'Código',
+            'IDCurso' => 'ID Curso',
+            'IDProf' => 'ID Professor',
+            'ch' => 'Carga Horária',
+            'credito' => 'Crédito',
+            'periodo' => 'Período',
+            'qat' => 'QAT',
+            'qto' => 'QTO',
+            'codTurma' => 'Código da Turma',
+            'lab' => 'Laboratório?',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAlunos()
+    {
+        return $this->hasMany(Aluno::className(), ['IDDisc' => 'ID']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIDCurso()
+    {
+        return $this->hasOne(Curso::className(), ['ID' => 'IDCurso']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMonitorias()
+    {
+        return $this->hasMany(Monitoria::className(), ['IDDisc' => 'ID']);
+    }
+
+    public function getProfessores()
+    {
+        return $this->hasMany(Monitoria::className(), ['IDProf' => 'ID']);
     }
 }

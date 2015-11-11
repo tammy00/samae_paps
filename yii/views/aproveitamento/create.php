@@ -8,6 +8,8 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model app\models\Aproveitamento */
 
+
+
 $this->title = 'Solicitação de Aproveitamento de Estudos';
 $this->params['breadcrumbs'][] = ['label' => 'Aproveitamentos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

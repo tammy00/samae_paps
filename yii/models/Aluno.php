@@ -7,21 +7,28 @@ use Yii;
 /**
  * This is the model class for table "aluno".
  *
- * @property string $Matricula
- * @property string $Nome
- * @property string $Disciplina
- * @property string $Curso
- * @property string $Email
- * @property integer $Monitor
- * @property integer $Bolsista
- * @property string $RG
- * @property string $CPF
- * @property string $Endereco
- * @property string $Telefone
- * @property string $Celular
- * @property string $Banco
- * @property string $Agencia
- * @property string $Conta
+ * @property integer $ID
+ * @property integer $matricula
+ * @property string $nome
+ * @property string $email
+ * @property integer $RG
+ * @property integer $CPF
+ * @property string $endereco
+ * @property string $bairro
+ * @property string $telResid
+ * @property string $telCel
+ * @property string $telComerc
+ * @property integer $IDCurso
+ * @property integer $IDDisc
+ * @property string $banco
+ * @property string $agencia
+ * @property string $conta
+ * @property integer $monitor
+ *
+ * @property Curso $iDCurso
+ * @property Disciplina $iDDisc
+ * @property Aproveitamento[] $aproveitamentos
+ * @property Monitoria[] $monitorias
  */
 class Aluno extends \yii\db\ActiveRecord
 {
@@ -39,17 +46,14 @@ class Aluno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Matricula', 'Nome', 'Disciplina', 'Curso', 'Email', 'Monitor', 'Bolsista', 'RG', 'CPF', 'Endereco', 'Telefone', 'Celular', 'Banco', 'Agencia', 'Conta'], 'required'],
-            [['Matricula', 'Monitor', 'Bolsista', 'RG', 'CPF'], 'integer'],
-            [['Endereco'], 'string'],
-            [['Nome'], 'string', 'max' => 150],
-            [['Disciplina', 'Curso'], 'string', 'max' => 6],
-            [['Email'], 'string', 'max' => 50],
-            [['Telefone'], 'string', 'max' => 8],
-            [['Celular'], 'string', 'max' => 9],
-            [['Banco'], 'string', 'max' => 15],
-            [['Agencia'], 'string', 'max' => 30],
-            [['Conta'], 'string', 'max' => 20]
+            [['matricula', 'nome', 'email', 'RG', 'CPF', 'IDCurso', 'banco', 'agencia', 'conta'], 'required'],
+            [['matricula', 'RG', 'CPF', 'IDCurso', 'IDDisc', 'monitor'], 'integer'],
+            [['endereco'], 'string'],
+            [['nome'], 'string', 'max' => 250],
+            [['email'], 'string', 'min' => 10, 'max' => 50],
+            [['bairro'], 'string', 'max' => 100, 'min' => 4],
+            [['telResid', 'telCel', 'telComerc'], 'string', 'max' => 15, 'min' => 15],
+            [['banco', 'agencia', 'conta'], 'string', 'max' => 150, 'min' => 4]
         ];
     }
 
@@ -59,21 +63,55 @@ class Aluno extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Matricula' => 'Matricula',
-            'Nome' => 'Nome',
-            'Disciplina' => 'Disciplina',
-            'Curso' => 'Curso',
-            'Email' => 'Email',
-            'Monitor' => 'Monitor',
-            'Bolsista' => 'Bolsista',
-            'RG' => 'Rg',
-            'CPF' => 'Cpf',
-            'Endereco' => 'Endereco',
-            'Telefone' => 'Telefone',
-            'Celular' => 'Celular',
-            'Banco' => 'Banco',
-            'Agencia' => 'Agencia',
-            'Conta' => 'Conta',
+            'ID' => 'ID',
+            'matricula' => 'Matrícula',
+            'nome' => 'Nome',
+            'email' => 'E-mail',
+            'RG' => 'RG',
+            'CPF' => 'CPF',
+            'endereco' => 'Endereço',
+            'bairro' => 'Bairro',
+            'telResid' => 'Telefone (residência)',
+            'telCel' => 'Telefone (celular)',
+            'telComerc' => 'Telefone (comercial)',
+            'IDCurso' => 'ID Curso',
+            'IDDisc' => 'ID Disciplina',
+            'banco' => 'Banco',
+            'agencia' => 'Agência',
+            'conta' => 'Conta',
+            'monitor' => 'Monitor?',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIDCurso()
+    {
+        return $this->hasOne(Curso::className(), ['ID' => 'IDCurso']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIDDisc()
+    {
+        return $this->hasOne(Disciplina::className(), ['ID' => 'IDDisc']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAproveitamentos()
+    {
+        return $this->hasMany(Aproveitamento::className(), ['IDAluno' => 'ID']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMonitorias()
+    {
+        return $this->hasMany(Monitoria::className(), ['IDAluno' => 'matricula']);
     }
 }

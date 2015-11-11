@@ -7,11 +7,16 @@ use Yii;
 /**
  * This is the model class for table "monitoria".
  *
- * @property string $numProcesso
- * @property string $IDDisciplina
- * @property integer $Matricula
- * @property integer $IDProfessor
- * @property integer $Bolsista
+ * @property integer $ID
+ * @property string $numProcs
+ * @property integer $IDAluno
+ * @property integer $IDDisc
+ * @property integer $IDCurso
+ * @property integer $bolsa
+ *
+ * @property Disciplina $iDDisc
+ * @property Curso $iDCurso
+ * @property Aluno $iDAluno
  */
 class Monitoria extends \yii\db\ActiveRecord
 {
@@ -29,10 +34,9 @@ class Monitoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['CodDisciplina', 'Matricula', 'IDProfessor'], 'required'],
-            [['Matricula', 'IDProfessor', 'Bolsista'], 'integer'],
-            [['numProcesso'], 'string', 'max' => 15],
-            [['CodDisciplina'], 'string', 'max' => 6]
+            [['numProcs', 'IDAluno', 'IDDisc', 'IDCurso', 'bolsa'], 'required'],
+            [['IDAluno', 'IDDisc', 'IDCurso', 'bolsa'], 'integer'],
+            [['numProcs'], 'string', 'max' => 150, 'min' => 7]
         ];
     }
 
@@ -42,48 +46,50 @@ class Monitoria extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'numProcesso' => 'Número de processo',
-            'CodDisciplina' => 'Disciplina',
-            'Matricula' => 'Matrícula',
-            'IDProfessor' => 'Professor',
-            'Bolsista' => 'Bolsista',
+            'ID' => 'ID',
+            'numProcs' => 'Nº Processo',
+            'IDAluno' => 'ID Aluno',
+            'IDDisc' => 'ID Disciplina',
+            'IDCurso' => 'ID Curso',
+            'bolsa' => 'Bolsa',
         ];
     }
 
-   public function afterFind()
-    { 
-        switch ($this->IDProfessor) {
-             case 1: 
-                 $this->IDProfessor = 'ARILO CLÁUDIO DIAS NETO';
-                 break;
-             case 2: 
-                 $this->IDProfessor = 'EDLENO SILVA DE MOURA';
-                 break;
-             case 3: 
-                 $this->IDProfessor = 'CÉSAR AUGUSTO VIANA MELO';
-                 break;
-             case 4: 
-                 $this->IDProfessor = 'EDSON NASCIMENTO SILVA JÚNIOR';
-                 break;
-        } 
-        //$this->IDProfessor = $this->Nome;  
-        /* switch ($this->Bolsista) 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIDDisc()
+    {
+        return $this->hasOne(Disciplina::className(), ['ID' => 'IDDisc']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIDCurso()
+    {
+        return $this->hasOne(Curso::className(), ['ID' => 'IDCurso']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIDAluno()
+    {
+        return $this->hasOne(Aluno::className(), ['matricula' => 'IDAluno']);
+    }
+
+    public function afterFind()
+    {
+        switch ($this->Bolsista)
         {
-            case 1: 
-                $this->Bolsista = 'Sim';
-                break;
-            case 0: 
+            case 0:
                 $this->Bolsista = 'Não';
                 break;
-        }  */  /*
-        switch ($this->Laboratorio) 
-        {
-            case 1: 
-                $this->Laboratorio = 'Sim';
+            case 1:
+                $this->Bolsista = 'Sim';
                 break;
-            case 0: 
-                $this->Laboratorio = 'Não';
-                break;
-        }  */
-    }     
+        }
+    }
+    
 }

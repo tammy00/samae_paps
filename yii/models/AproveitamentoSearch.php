@@ -18,8 +18,8 @@ class AproveitamentoSearch extends Aproveitamento
     public function rules()
     {
         return [
-            [['NumProcesso', 'nomeAluno', 'status', 'matriculaUFAM', 'cursoUFAM', 'disciplinaIES', 'codIES', 'mediaIES'], 'safe'],
-            [['idAluno', 'formaIngresso', 'creditoIES', 'horaIES', 'creditoUFAM', 'horaUFAM'], 'integer'],
+            [['ID', 'IDAluno', 'IDCurso', 'formaIngreso', 'discIES', 'codIES', 'credIES', 'chIES', 'mediaIES', 'codUFAM', 'chUFAM', 'credUFAM'], 'integer'],
+            [['numProcs', 'status'], 'safe'],
         ];
     }
 
@@ -56,22 +56,22 @@ class AproveitamentoSearch extends Aproveitamento
         }
 
         $query->andFilterWhere([
-            'idAluno' => $this->idAluno,
-            'formaIngresso' => $this->formaIngresso,
-            'creditoIES' => $this->creditoIES,
-            'horaIES' => $this->horaIES,
-            'creditoUFAM' => $this->creditoUFAM,
-            'horaUFAM' => $this->horaUFAM,
+            'ID' => $this->ID,
+            'IDAluno' => $this->IDAluno,
+            'IDCurso' => $this->IDCurso,
+            'formaIngreso' => $this->formaIngreso,
+            'discIES' => $this->discIES,
+            'codIES' => $this->codIES,
+            'credIES' => $this->credIES,
+            'chIES' => $this->chIES,
+            'mediaIES' => $this->mediaIES,
+            'codUFAM' => $this->codUFAM,
+            'chUFAM' => $this->chUFAM,
+            'credUFAM' => $this->credUFAM,
         ]);
 
-        $query->andFilterWhere(['like', 'NumProcesso', $this->NumProcesso])
-            ->andFilterWhere(['like', 'nomeAluno', $this->nomeAluno])
-            ->andFilterWhere(['like', 'status', $this->status])
-            ->andFilterWhere(['like', 'matriculaUFAM', $this->matriculaUFAM])
-            ->andFilterWhere(['like', 'cursoUFAM', $this->cursoUFAM])
-            ->andFilterWhere(['like', 'disciplinaIES', $this->disciplinaIES])
-            ->andFilterWhere(['like', 'codIES', $this->codIES])
-            ->andFilterWhere(['like', 'mediaIES', $this->mediaIES]);
+        $query->andFilterWhere(['like', 'numProcs', $this->numProcs])
+            ->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
     }

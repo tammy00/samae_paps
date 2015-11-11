@@ -7,11 +7,10 @@ use Yii;
 /**
  * This is the model class for table "professor".
  *
- * @property string $IDProfessor
+ * @property string $ID
  * @property string $Nome
  * @property string $Email
  * @property string $Telefone
- * @property string $IDDisciplina
  */
 class Professor extends \yii\db\ActiveRecord
 {
@@ -29,11 +28,10 @@ class Professor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Nome', 'Email', 'Telefone', 'IDDisciplina'], 'required'],
+            [['Nome', 'Email', 'Telefone'], 'required'],
             [['Telefone'], 'integer'],
             [['Nome'], 'string', 'max' => 120],
-            [['Email'], 'string', 'max' => 100],
-            [['IDDisciplina'], 'string', 'max' => 6]
+            [['Email'], 'string', 'max' => 100]
         ];
     }
 
@@ -43,11 +41,10 @@ class Professor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'IDProfessor' => 'Idprofessor',
+            'ID' => 'ID',
             'Nome' => 'Nome',
-            'Email' => 'Email',
+            'Email' => 'E-mail',
             'Telefone' => 'Telefone',
-            'IDDisciplina' => 'Iddisciplina',
         ];
     }
 }

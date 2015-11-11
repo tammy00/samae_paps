@@ -18,8 +18,8 @@ class ProfessorSearch extends Professor
     public function rules()
     {
         return [
-            [['IDProfessor', 'Telefone'], 'integer'],
-            [['Nome', 'Email', 'IDDisciplina'], 'safe'],
+            [['ID', 'Telefone'], 'integer'],
+            [['Nome', 'Email'], 'safe'],
         ];
     }
 
@@ -56,13 +56,12 @@ class ProfessorSearch extends Professor
         }
 
         $query->andFilterWhere([
-            'IDProfessor' => $this->IDProfessor,
+            'ID' => $this->ID,
             'Telefone' => $this->Telefone,
         ]);
 
         $query->andFilterWhere(['like', 'Nome', $this->Nome])
-            ->andFilterWhere(['like', 'Email', $this->Email])
-            ->andFilterWhere(['like', 'IDDisciplina', $this->IDDisciplina]);
+            ->andFilterWhere(['like', 'Email', $this->Email]);
 
         return $dataProvider;
     }

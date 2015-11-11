@@ -7,9 +7,9 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model app\models\Aproveitamento */
 
-$this->title = 'Update Aproveitamento: ' . ' ' . $model->nomeAluno;
+$this->title = 'Atualização de Solicitação de Aproveitamento: ' . ' ' . $model->numProcs;
 $this->params['breadcrumbs'][] = ['label' => 'Aproveitamentos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idAluno, 'url' => ['view', 'id' => $model->idAluno]];
+$this->params['breadcrumbs'][] = ['label' => $model->numProcs, 'url' => ['view', 'id' => $model->numProcs]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="aproveitamento-update">
@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'arrayDeCurso' => $arrayDeCurso,
     ]) ?>
 
 </div>

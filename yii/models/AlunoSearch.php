@@ -18,8 +18,8 @@ class AlunoSearch extends Aluno
     public function rules()
     {
         return [
-            [['Matricula', 'Monitor', 'Bolsista', 'RG', 'CPF'], 'integer'],
-            [['Nome', 'Disciplina', 'Curso', 'Email', 'Endereco', 'Telefone', 'Celular', 'Banco', 'Agencia', 'Conta'], 'safe'],
+            [['ID', 'matricula', 'RG', 'CPF', 'IDCurso', 'IDDisc', 'monitor'], 'integer'],
+            [['nome', 'email', 'endereco', 'bairro', 'telResid', 'telCel', 'telComerc', 'banco', 'agencia', 'conta'], 'safe'],
         ];
     }
 
@@ -56,23 +56,25 @@ class AlunoSearch extends Aluno
         }
 
         $query->andFilterWhere([
-            'Matricula' => $this->Matricula,
-            'Monitor' => $this->Monitor,
-            'Bolsista' => $this->Bolsista,
+            'ID' => $this->ID,
+            'matricula' => $this->matricula,
             'RG' => $this->RG,
             'CPF' => $this->CPF,
+            'IDCurso' => $this->IDCurso,
+            'IDDisc' => $this->IDDisc,
+            'monitor' => $this->monitor,
         ]);
 
-        $query->andFilterWhere(['like', 'Nome', $this->Nome])
-            ->andFilterWhere(['like', 'Disciplina', $this->Disciplina])
-            ->andFilterWhere(['like', 'Curso', $this->Curso])
-            ->andFilterWhere(['like', 'Email', $this->Email])
-            ->andFilterWhere(['like', 'Endereco', $this->Endereco])
-            ->andFilterWhere(['like', 'Telefone', $this->Telefone])
-            ->andFilterWhere(['like', 'Celular', $this->Celular])
-            ->andFilterWhere(['like', 'Banco', $this->Banco])
-            ->andFilterWhere(['like', 'Agencia', $this->Agencia])
-            ->andFilterWhere(['like', 'Conta', $this->Conta]);
+        $query->andFilterWhere(['like', 'nome', $this->nome])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'endereco', $this->endereco])
+            ->andFilterWhere(['like', 'bairro', $this->bairro])
+            ->andFilterWhere(['like', 'telResid', $this->telResid])
+            ->andFilterWhere(['like', 'telCel', $this->telCel])
+            ->andFilterWhere(['like', 'telComerc', $this->telComerc])
+            ->andFilterWhere(['like', 'banco', $this->banco])
+            ->andFilterWhere(['like', 'agencia', $this->agencia])
+            ->andFilterWhere(['like', 'conta', $this->conta]);
 
         return $dataProvider;
     }
