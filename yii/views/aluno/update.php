@@ -1,14 +1,16 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use app\models\CursoSearch;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aluno */
 
-$this->title = 'Update Aluno: ' . ' ' . $model->ID;
+$this->title = 'Editar perfil: ' . ' ' . $model->matricula;
 $this->params['breadcrumbs'][] = ['label' => 'Alunos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->ID, 'url' => ['view', 'id' => $model->ID]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => $model->matricula, 'url' => ['view', 'id' => $model->matricula]];
+$this->params['breadcrumbs'][] = 'Editar perfil';
 ?>
 <div class="aluno-update">
 
@@ -16,6 +18,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'arrayDeCurso' => $arrayDeCurso,
     ]) ?>
 
 </div>

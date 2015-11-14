@@ -74,8 +74,8 @@ class Aluno extends \yii\db\ActiveRecord
             'telResid' => 'Telefone (residência)',
             'telCel' => 'Telefone (celular)',
             'telComerc' => 'Telefone (comercial)',
-            'IDCurso' => 'ID Curso',
-            'IDDisc' => 'ID Disciplina',
+            'IDCurso' => 'Curso',
+            'IDDisc' => 'Monitoria na disciplina',
             'banco' => 'Banco',
             'agencia' => 'Agência',
             'conta' => 'Conta',
@@ -114,4 +114,6 @@ class Aluno extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Monitoria::className(), ['IDAluno' => 'matricula']);
     }
+
+
 }

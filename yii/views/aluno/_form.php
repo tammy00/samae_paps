@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\CursoSearch;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aluno */
@@ -16,33 +18,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => 20]) ?>
 
     <?= $form->field($model, 'RG')->textInput() ?>
 
     <?= $form->field($model, 'CPF')->textInput() ?>
 
-    <?= $form->field($model, 'endereco')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'endereco')->textinput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'bairro')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'bairro')->textInput(['maxlength' => 20]) ?>
 
-    <?= $form->field($model, 'telResid')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'telResid')->textInput(['maxlength' => 9]) ?>
 
-    <?= $form->field($model, 'telCel')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'telCel')->textInput(['maxlength' => 9]) ?>
 
-    <?= $form->field($model, 'telComerc')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'telComerc')->textInput(['maxlength' => 9]) ?>
 
-    <?= $form->field($model, 'IDCurso')->textInput() ?>
+    <?= $form->field($model, 'IDCurso')->dropDownList([$arrayDeCurso],['prompt'=>'Selecione seu curso']); ?>
 
-    <?= $form->field($model, 'IDDisc')->textInput() ?>
+    <?= $form->field($model, 'banco')->textInput(['maxlength' => 20]) ?>
 
-    <?= $form->field($model, 'banco')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'agencia')->textInput(['maxlength' => 20]) ?>
 
-    <?= $form->field($model, 'agencia')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'conta')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'monitor')->textInput() ?>
+    <?= $form->field($model, 'conta')->textInput(['maxlength' => 10]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

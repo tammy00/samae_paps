@@ -5,45 +5,20 @@ namespace app\controllers;
 use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
-use app\models\UsuarioForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\swiftmailer\Mailer;
 
+
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
  */
-
-/**
- * Tammy
- */
-
 class UsuarioController extends Controller
 {
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['create', 'index', 'update', 'view', 'delete'],
-                'rules' => [
-                    [
-                        'actions' => ['create', 'index', 'update', 'view', 'delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],            
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ]; 
-    /*
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -51,7 +26,7 @@ class UsuarioController extends Controller
                     'delete' => ['post'],
                 ],
             ],
-        ];  */
+        ];
     }
 
     /**
@@ -90,14 +65,9 @@ class UsuarioController extends Controller
     {
         $model = new Usuario();
 
-        if ($model->load(Yii::$app->request->post())) 
-        {
-            $model->password = md5($model->password);
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
-        } 
-        else 
-        {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->ID]);
+        } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -115,7 +85,7 @@ class UsuarioController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->ID]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -148,7 +118,7 @@ class UsuarioController extends Controller
         if (($model = Usuario::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('A página requisitada não existe.');
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 
@@ -172,7 +142,7 @@ class UsuarioController extends Controller
         }
     }
 
-        public function actionNovasenha()
+    public function actionNovasenha()
     {
         if ( Yii::$app->request->post()) 
         {
@@ -180,16 +150,17 @@ class UsuarioController extends Controller
             $user = Usuario::find()->where(['email'=>$email])->one();//findByEmail($email);
             if ($user != null)
             {
+                set_time_limit(0);
                 /*$domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
                 $key = 'key-f0dc85b59a45bcda5373019f605ce034';
                 $mailgun = new \MailgunApi( $domain, $key );   */
                 //$mensagem->newMessage();
-                $mensagem = Yii::$app->mailer->compose();
-                $mensagem->setFrom($email, 'Sistema de Apoio à Monitoria e Aproveitamento de Estudos');
-                $mensagem->setTo( $user->email, $user->nome);
-                $mensagem->setSubject('Senha no Sistema de Apoio à Monitoria e Aproveitamento de Estudos');
-                $mensagem->setTextBody('Sua nova senha temporária é: ' . $user->gerarSenhaNova());
-                $mensagem->send();
+                $mensagem = Yii::$app->mailer->compose()
+                         ->setFrom('hikari_tammy@hotmail.com')
+                         ->setTo( $user->email)
+                         ->setSubject('Senha no Sistema de Apoio à Monitoria e Aproveitamento de Estudos')
+                         ->setTextBody('Sua nova senha temporária é: ' . $user->gerarSenhaNova())
+                         ->send();
                 
                 return $this->render('novasenhaenviada');
             }
@@ -207,4 +178,6 @@ class UsuarioController extends Controller
     {
         return $this->render('novasenha');
     }
+
+
 }

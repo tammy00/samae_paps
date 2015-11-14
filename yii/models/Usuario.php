@@ -11,21 +11,15 @@ use yii\web\IdentityInterface;
 /**
  * This is the model class for table "usuario".
  *
- * @property integer $id
+ * @property integer $ID
  * @property string $login
  * @property string $senha
  * @property string $nome
  * @property string $email
  * @property string $auth_key
  * @property string $password_reset_token
- * @property integer $isAdmin
+ * @property integer $perfil
  */
-
-/**
- * Tammy
- *
- */
-
 class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
 {
     /**
@@ -43,11 +37,11 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     {
         return [
             [['senha', 'auth_key', 'password_reset_token'], 'string'],
-            [['nome', 'login', 'senha', 'email'], 'required'],
-            [['isAdmin'], 'integer'],
-            [['login'], 'string', 'max' => 20],
-            [['nome'], 'string', 'max' => 200],
-            [['email'], 'string', 'max' => 100]
+            [['perfil'], 'required'],
+            [['perfil'], 'integer'],
+            [['login'], 'string', 'min' => 5, 'max' => 20],
+            [['nome'], 'string', 'max' => 200, 'min' => 10],
+            [['email'], 'string', 'max' => 100, 'min' => 8]
         ];
     }
 
@@ -57,19 +51,17 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'ID' => 'ID',
             'login' => 'Login',
             'senha' => 'Senha',
             'nome' => 'Nome',
-            'email' => 'Email',
+            'email' => 'E-mail',
             'auth_key' => 'Auth Key',
             'password_reset_token' => 'Password Reset Token',
-            'isAdmin' => 'Admin',
+            'perfil' => 'Perfil',
         ];
     }
-     /**
-     * @inheritdoc
-     */
+
     public static function findIdentity($id)
     {
         return static::findOne($id);
@@ -195,7 +187,6 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
 
     public function gerarSenhaNova()
     {
-        
         $abc_nums = '0A1a2B3b4C5c6D7d8E9eFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz';
         $chave = substr(str_shuffle(str_repeat($abc_nums, 5)), 0, strlen($abc_nums) );
         $chave = substr($chave, 0, 10) . '_' . rand(1,10000);

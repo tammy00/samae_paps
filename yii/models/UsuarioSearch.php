@@ -18,8 +18,8 @@ class UsuarioSearch extends Usuario
     public function rules()
     {
         return [
-            [['id', 'isAdmin'], 'integer'],
-            [['senha', 'auth_key', 'password_reset_token'], 'safe'],
+            [['ID', 'perfil'], 'integer'],
+            [['login', 'senha', 'nome', 'email', 'auth_key', 'password_reset_token'], 'safe'],
         ];
     }
 
@@ -56,8 +56,8 @@ class UsuarioSearch extends Usuario
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'isAdmin' => $this->isAdmin,
+            'ID' => $this->ID,
+            'perfil' => $this->perfil,
         ]);
 
         $query->andFilterWhere(['like', 'login', $this->login])

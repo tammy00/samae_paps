@@ -9,7 +9,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'goose-mother-house',
+            'cookieValidationKey' => 'NHUSJFSKJIksmigvmjsIJISJFIS',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -27,14 +27,20 @@ $config = [
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => false,
-            'viewPath' => 'yii2Basic',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'port' => 456,
+                //'smtpsecure' => 'ssl',
+                //'smtpauth' => true,
+                'username' => 'sistemas@icomp.ufam.edu.br',
+                'password' => 'Si102030',
+                'encryption' => 'tls',
+            ], /*
+            'viewPath' => 'yii2Basic',  
             'mailer' => 'smtp',
-            'host' => 'smtp.gmail.com',
-            'port' => '456',
             'smtpsecure' => 'ssl',
-            'smtpauth' => true,
-            'username' => 'sistemas@icomp.ufam.edu.br',
-            'password' => 'Si102030',
+            'smtpauth' => true,   */
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
