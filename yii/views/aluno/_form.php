@@ -43,7 +43,7 @@ use app\models\CursoSearch;
     <?= $form->field($model, 'conta')->textInput(['maxlength' => 10]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Adicionar Aluno' : 'Atualizar Dados', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

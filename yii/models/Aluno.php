@@ -46,13 +46,13 @@ class Aluno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['matricula', 'nome', 'email', 'RG', 'CPF', 'IDCurso', 'banco', 'agencia', 'conta'], 'required'],
+            [['matricula', 'nome', 'email', 'RG', 'CPF', 'IDCurso'], 'required', 'message' => 'Este campo é obrigatório.'],
             [['matricula', 'RG', 'CPF', 'IDCurso', 'IDDisc', 'monitor'], 'integer'],
             [['endereco'], 'string'],
             [['nome'], 'string', 'max' => 250],
             [['email'], 'string', 'min' => 10, 'max' => 50],
             [['bairro'], 'string', 'max' => 100, 'min' => 4],
-            [['telResid', 'telCel', 'telComerc'], 'string', 'max' => 15, 'min' => 15],
+            [['telResid', 'telCel', 'telComerc'], 'string', 'max' => 15, 'min' => 8],
             [['banco', 'agencia', 'conta'], 'string', 'max' => 150, 'min' => 4]
         ];
     }

@@ -16,6 +16,8 @@ use yii\helpers\ArrayHelper;
  */
 class AlunoController extends Controller
 {
+    public $flag = 0;
+
     public function behaviors()
     {
         return [
@@ -63,12 +65,14 @@ class AlunoController extends Controller
     public function actionCreate()
     {
         $model = new Aluno();
+        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'arrayDeCurso' => $arrayDeCurso,
             ]);
         }
     }
@@ -125,56 +129,27 @@ class AlunoController extends Controller
 
     public function actionEditardados()
     {
-        if ( Yii::$app->request->post()) 
-        {
-            
-            $model = new Aluno();
-            //verifica se o aluno já está cadastrado
-            //com o cpf informado...
-            //$aluno = Usuario::find()->where(['cpf' => Yii::$app->request->post('cpf') ])->one();
-
-            /* * pega os dados do webservice do cpd * */
-            $link = 'http://200.129.163.9:8080/ecampus/servicos/getPessoaValidaSIE?cpf=' ;
-            
-            $link = $link . Yii::$app->request->post('cpf');
-            $webservice = @file_get_contents($link);
-            
-            // Caso o webservice esteja indisponivel o sistema volta para a pagina inicial
-
-            if($webservice == null)
-            {
-                return $this->goBack();
-            }
-            
-            $dados = json_decode($webservice, true);
-
-            //verifica se encontrou o CPF no ecampus
-
-            if( isset( $dados['CPF inválido ']) )
-            {
-                return $this->render('editardados', ['erro'=>'Este CPF não consta no banco de dados do CPD.']);
-            }
-
-            //Para alunos com mais de uma matricula
-
-            $ultimo = count($dados) -1 ;
-
-            $model->nome = $dados[$ultimo]['NOME_PESSOA'] ;
-            $model->cpf = Yii::$app->request->post('cpf');
-            $model->email = $dados[$ultimo]['EMAIL'];
-            $model->matricula = $dados[$ultimo]['MATR_ALUNO'];
-            
-            if($model->matricula != null)
-            {
-                $model->perfil = Yii::$app->request->post('perfil');  
-            }
-            
-            $model->isNewRecord = true; 
-            return $this->render('update', ['model' => $model]);                
+        //verifica se o aluno já está cadastrado com o cpf informado...
+        
+        if (!Yii::$app->request->post()) // Aluno já tem cadastro prévio no sistema - ele só quer editar os dados dele.
+        {       
+            return $this->render('editardados') ;
         }
         else
         {
-            return $this->render('editardados') ;  
+            $cpf = Yii::$app->request->post('cpf');
+            $aluno = Aluno::find()->where(['cpf' => $cpf])->one();
+            if ($aluno != null) 
+            {
+                $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
+                $dados_aluno = Aluno::findOne(['CPF' => $cpf]);
+
+               return $this->redirect(['view', 'id' => $dados_aluno->ID]);
+            } 
+            else // Aluno com o cpf informado não está cadastrado no sistema.
+            {
+                return $this->render('semcadastro');
+            }  
         }
     }
 }

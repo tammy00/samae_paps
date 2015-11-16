@@ -7,7 +7,7 @@ use app\models\CursoSearch;
 /* @var $this yii\web\View */
 /* @var $model app\models\Aluno */
 
-$this->title = 'Editar perfil: ' . ' ' . $model->matricula;
+$this->title = 'Editar dados: ' . ' ' . $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Alunos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->matricula, 'url' => ['view', 'id' => $model->matricula]];
 $this->params['breadcrumbs'][] = 'Editar perfil';

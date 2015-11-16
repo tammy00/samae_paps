@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use app\models\CursoSearch;
 
 
 /* @var $this yii\web\View */
@@ -16,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'arrayDeCurso' => $arrayDeCurso,
     ]) ?>
 
 </div>
