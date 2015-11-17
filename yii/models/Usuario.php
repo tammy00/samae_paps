@@ -37,7 +37,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     {
         return [
             [['senha', 'auth_key', 'password_reset_token'], 'string'],
-            [['perfil'], 'required'],
+            [['perfil', 'login', 'senha', 'email', 'nome'], 'required'],
             [['perfil'], 'integer'],
             [['login'], 'string', 'min' => 5, 'max' => 20],
             [['nome'], 'string', 'max' => 200, 'min' => 10],
@@ -51,13 +51,13 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'ID' => 'ID',
-            'login' => 'Login',
+            //'ID' => 'ID',
+            'login' => 'Login (CPF)',
             'senha' => 'Senha',
             'nome' => 'Nome',
             'email' => 'E-mail',
-            'auth_key' => 'Auth Key',
-            'password_reset_token' => 'Password Reset Token',
+            //'auth_key' => 'Auth Key',
+            //'password_reset_token' => 'Password Reset Token',
             'perfil' => 'Perfil',
         ];
     }

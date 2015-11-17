@@ -51,6 +51,16 @@ $this->title = 'Login';
             </div>
         </div>
 
+    <?php 
+        if(isset($erro))
+        {
+            echo "<p class='col-sm-4 alert alert-danger'>";
+            echo $erro ;
+            echo "</p>";
+        }
+    ?>
+    
+
     <?php ActiveForm::end(); ?>
 
 </div>
