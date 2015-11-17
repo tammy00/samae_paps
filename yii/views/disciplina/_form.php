@@ -34,8 +34,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'lab')->textInput() ?>
 
-    <?= $form->field($model, 'monitoria')->textInput() ?>
-
 
 
     <div class="form-group">

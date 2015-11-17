@@ -133,7 +133,7 @@ class AlunoController extends Controller
         
         if (!Yii::$app->request->post()) // Aluno já tem cadastro prévio no sistema - ele só quer editar os dados dele.
         {       
-            return $this->render('editardados') ;
+            return $this->render('editardados');
         }
         else
         {
@@ -148,8 +148,13 @@ class AlunoController extends Controller
             } 
             else // Aluno com o cpf informado não está cadastrado no sistema.
             {
-                return $this->render('semcadastro');
+                return $this->render('editardados', ['erro' => 'Você não tem cadastro prévio no sistema. Entre em contato com a secretaria para resolver o problema.']);
             }  
         }
+    }
+
+    public function afterFind()
+    {
+        $this->IDDisc = $this->nome;
     }
 }

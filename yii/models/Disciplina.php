@@ -41,7 +41,7 @@ class Disciplina extends \yii\db\ActiveRecord
     {
         return [
             [['nome', 'codigo', 'IDCurso', 'IDProf', 'ch', 'credito', 'periodo', 'qat', 'qto', 'codTurma'], 'required'],
-            [['IDCurso', 'IDProf', 'ch', 'credito', 'qat', 'qto', 'lab', 'monitoria'], 'integer'],
+            [['IDCurso', 'IDProf', 'ch', 'credito', 'qat', 'qto', 'lab'], 'integer'],
             [['nome'], 'string', 'max' => 150, 'min' => 20],
             [['codigo'], 'string', 'max' => 7, 'min' => 6],
             [['periodo'], 'string', 'max' => 6, 'min' => 6],
@@ -66,7 +66,6 @@ class Disciplina extends \yii\db\ActiveRecord
             'qat' => 'QAT',
             'qto' => 'QTO',
             'codTurma' => 'Código da Turma',
-            'monitoria' => 'Monitoria?',
             'lab' => 'Laboratório?'
         ];
     }

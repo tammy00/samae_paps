@@ -8,7 +8,7 @@ use app\models\CursoSearch;
 /* @var $model app\models\Aluno */
 
 $this->title = 'Editar dados: ' . ' ' . $model->nome;
-$this->params['breadcrumbs'][] = ['label' => 'Alunos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Editar perfil', 'url' => ['editardados']];
 $this->params['breadcrumbs'][] = ['label' => $model->matricula, 'url' => ['view', 'id' => $model->matricula]];
 $this->params['breadcrumbs'][] = 'Editar perfil';
 ?>

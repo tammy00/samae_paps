@@ -115,5 +115,23 @@ class Aluno extends \yii\db\ActiveRecord
         return $this->hasMany(Monitoria::className(), ['IDAluno' => 'matricula']);
     }
 
+    public function afterFind()
+    { 
+        //$this->nome = ucwords(strtolower($this->nome)); 
+        //if ($this->formaIngresso=='0') $this->formaIngresso = 'Transferência Obrigatória'; 
+        //else $this->sexo = 'Masculino'; 
+        switch ($this->IDCurso) {
+             case 1: 
+                 $this->IDCurso = 'Ciências da Computação';
+                 break;
+             case 2: 
+                 $this->IDCurso = 'Sistemas de Informação';
+                 break;
+             case 3: 
+                 $this->IDCurso = 'Engenharia da Computação';
+                 break;
+        }
+    } 
+
 
 }

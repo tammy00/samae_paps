@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Aluno */
 
 $this->title = $model->nome;
-$this->params['breadcrumbs'][] = ['label' => 'Alunos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Editar dados', 'url' => ['editardados']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="aluno-view">
@@ -16,13 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->ID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Deletar', ['delete', 'id' => $model->ID], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Você tem certeza de que quer excluir este registro?',
-                'method' => 'post',
-            ],
-        ]) ?>
+
     </p>
 
     <?= DetailView::widget([

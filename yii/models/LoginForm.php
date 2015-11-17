@@ -36,7 +36,7 @@ class LoginForm extends Model
             //['login', 'validateUsername']
             // password is validated by validatePassword()
             ['senha', 'validatePassword'],
-            ['senha', 'match', 'pattern'=>'/^[a-z0-9_-] {6,20}$/'],
+            //['senha', 'match', 'pattern'=>'/^[a-z0-9_-] {6,20}$/'],
         ];
     }
 

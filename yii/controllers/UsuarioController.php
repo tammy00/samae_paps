@@ -147,21 +147,18 @@ class UsuarioController extends Controller
         if ( Yii::$app->request->post()) 
         {
             $email = Yii::$app->request->post('email');
-            $user = Usuario::find()->where(['email'=>$email])->one();//findByEmail($email);
+            $user = Usuario::find()->where(['email'=>$email])->one();
             if ($user != null)
             {
                 set_time_limit(0);
-                /*$domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
-                $key = 'key-f0dc85b59a45bcda5373019f605ce034';
-                $mailgun = new \MailgunApi( $domain, $key );   */
-                //$mensagem->newMessage();
-                $mensagem = Yii::$app->mailer->compose()
-                         ->setFrom('hikari_tammy@hotmail.com')
-                         ->setTo( $user->email)
-                         ->setSubject('Senha no Sistema de Apoio à Monitoria e Aproveitamento de Estudos')
-                         ->setTextBody('Sua nova senha temporária é: ' . $user->gerarSenhaNova())
-                         ->send();
                 
+                $mensagem = Yii::$app->mailer->compose()
+                         ->setFrom('hikari_tammy@hotmail.com', 'Sistema de Apoio à Monitoria e Aproveitamento de Estudos')
+                         ->setTo( $user->email)
+                         ->setSubject('Nova senha')
+                         ->setTextBody('Sua nova senha temporária é: ' . $user->gerarSenhaNova())
+                         ->send()
+                ;
                 return $this->render('novasenhaenviada');
             }
             else {

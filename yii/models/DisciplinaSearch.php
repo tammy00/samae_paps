@@ -64,7 +64,6 @@ class DisciplinaSearch extends Disciplina
             'qat' => $this->qat,
             'qto' => $this->qto,
             'lab' => $this->lab,
-            'monitoria' => $this->monitoria,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])

@@ -26,21 +26,16 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => false,
+            'useFileTransport' => false,  
+            //'view'
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'port' => 456,
-                //'smtpsecure' => 'ssl',
-                //'smtpauth' => true,
+                'port' => 465,
                 'username' => 'sistemas@icomp.ufam.edu.br',
                 'password' => 'Si102030',
-                'encryption' => 'tls',
-            ], /*
-            'viewPath' => 'yii2Basic',  
-            'mailer' => 'smtp',
-            'smtpsecure' => 'ssl',
-            'smtpauth' => true,   */
+                'encryption' => 'ssl',
+            ],    
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'ID') ?>
+    <?= //$form->field($model, 'ID') ?>
 
     <?= $form->field($model, 'nome') ?>
 
@@ -38,8 +38,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'codTurma') ?>
 
     <?php // echo $form->field($model, 'lab') ?>
-
-    <?php // echo $form->field($model, 'monitoria') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
