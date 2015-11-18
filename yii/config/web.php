@@ -9,14 +9,14 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'goose-mother-house',
+            'cookieValidationKey' => 'NHUSJFSKJIksmigvmjsIJISJFIS',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'identityClass' => 'app\models\Usuario',
+            'enableAutoLogin' => false,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -26,7 +26,16 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,  
+            //'view'
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'port' => 465,
+                'username' => 'sistemas@icomp.ufam.edu.br',
+                'password' => 'Si102030',
+                'encryption' => 'ssl',
+            ],    
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
