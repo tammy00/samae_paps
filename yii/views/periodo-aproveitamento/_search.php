@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\MonitoriaSearch */
+/* @var $model app\models\PeriodoAproveitamentoSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="monitoria-search">
+<div class="periodo-aproveitamento-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,18 +17,14 @@ use yii\widgets\ActiveForm;
 
 
 
-    <?= $form->field($model, 'numProcs') ?>
+    <?= $form->field($model, 'dataInicio') ?>
 
-    <?= //$form->field($model, 'IDAluno') ?>
+    <?= $form->field($model, 'dataFim') ?>
 
-    <?= $form->field($model, 'IDDisc') ?>
-
-    <?= $form->field($model, 'IDCurso') ?>
-
-    <?php // echo $form->field($model, 'bolsa') ?>
+    <?= $form->field($model, 'periodo') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Pesquisar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Resetar', ['class' => 'btn btn-default']) ?>
     </div>
 

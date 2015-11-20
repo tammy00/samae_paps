@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <div class="jumbotron">
-        <p>    <?= Html::a('Gerenciar período de solicitação', ['gerenciarperiodo'], ['class' => 'btn btn-success']) ?>    </p>
+        <p>    <?= Html::a('Gerenciar período de solicitação', ['/periodo-aproveitamento/index'], ['class' => 'btn btn-success']) ?>    </p>
         <p>    <?= Html::a('Fazer solicitação', ['create'], ['class' => 'btn btn-success']) ?>    </p>
         <p>    <?= Html::a('Verificar status de uma solicitação', ['verificarstatus'], ['class' => 'btn btn-success']) ?>    </p>
     </div>

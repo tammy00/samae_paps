@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
         <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']) ?>
     </div>
 
-
+<p>
     <?php 
     	if(isset($erro))
     	{

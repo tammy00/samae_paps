@@ -17,7 +17,7 @@ use app\models\DisciplinaSearch;
 
     <?= $form->field($model, 'numProcs')->textInput(['maxlength' => 15, 'style'=>'width:130px']) ?>
 
-    <?= $form->field($model, 'IDAluno')->textInput(['style'=>'width:100px']) ?>
+    
 
     <?= $form->field($model, 'IDCurso')->dropDownList([$arrayDeCurso],['prompt'=>'Selecione um curso', 'style'=>'width:300px']); ?>
 

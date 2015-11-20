@@ -4,13 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Monitoria */
+/* @var $model app\models\PeriodoInscricaoMonitoria */
 
-$this->title = $model->numProcs;
-$this->params['breadcrumbs'][] = ['label' => 'Monitorias', 'url' => ['index']];
+$this->title = $model->ID . 'º Período de Inscrição';
+$this->params['breadcrumbs'][] = ['label' => 'Monitorias', 'url' => ['/monitoria/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Períodos de Inscrição', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="monitoria-view">
+<div class="periodo-inscricao-monitoria-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -19,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Deletar', ['delete', 'id' => $model->ID], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Você tem certeza de que quer excluir este registro?',
+                'confirm' => 'Você tem certeza de que quer deletar este registro?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,12 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-          //  'ID',
-            'numProcs',
-            'IDAluno',
-            'IDDisc',
-            'IDCurso',
-            'bolsa',
+            //'ID',
+            'dataInicio',
+            'dataFim',
+            'periodo',
         ],
     ]) ?>
 

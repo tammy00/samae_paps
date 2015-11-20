@@ -79,6 +79,7 @@ class Monitoria extends \yii\db\ActiveRecord
         return $this->hasOne(Aluno::className(), ['matricula' => 'IDAluno']);
     }
 
+
     public function afterFind()
     {
         switch ($this->Bolsista)
@@ -91,7 +92,6 @@ class Monitoria extends \yii\db\ActiveRecord
                 break;
         }
     }
-
     
     
 }
