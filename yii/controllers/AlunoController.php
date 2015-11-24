@@ -24,7 +24,7 @@ class AlunoController extends Controller
         return [
             'acess' => [
                 'class' => AccessControl::className(),
-                'only' => ['create','index','update', 'view', 'delete'],
+                'only' => ['create','index','update', 'view', 'delete','editardados'],
                 'rules' => [
                     [
                         'actions' => ['create','index','update', 'view', 'delete'],

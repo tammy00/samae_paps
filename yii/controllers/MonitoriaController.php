@@ -13,6 +13,7 @@ use app\models\DisciplinaSearch;
 use yii\helpers\ArrayHelper;
 use yii\db\Command;
 use app\models\CursoSearch;
+use yii\filters\AccessControl;
 
 /**
  * MonitoriaController implements the CRUD actions for Monitoria model.
@@ -89,7 +90,7 @@ class MonitoriaController extends Controller
     {
         $model = new Monitoria();
         $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
-        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'id', 'nomeDisciplina');
+        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'ID', 'nomeDisciplina');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
@@ -112,7 +113,7 @@ class MonitoriaController extends Controller
     {
         $model = $this->findModel($id);
         $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
-        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'id', 'nomeDisciplina');
+        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'ID', 'nomeDisciplina');
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

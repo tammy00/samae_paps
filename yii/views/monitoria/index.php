@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if(Yii::$app->user->identity->perfil == 0) { ?>
             <p> <?= Html::a('Cadastro como monitor', ['create'], ['class' => 'btn btn-success']) ?>   </p>
             <p> <?= Html::a('Frequência Individual', ['frequenciaindividual'], ['class' => 'btn btn-success']) ?> </p>
-            <p> <?= Html::a('Gerar Relatório Semestral', ['gerarrelatoriosemestral'], ['class' => 'btn btn-success']) ?> </p>
         <?php } ?>
 
         <?php if(Yii::$app->user->identity->perfil == 1){ ?>

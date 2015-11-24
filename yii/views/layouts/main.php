@@ -15,11 +15,12 @@ use app\assets\AppAsset;
 use kartik\sidenav\SideNav;
 use yii\helpers\Url;
 
+AppAsset::register($this);  ?>
 
-AppAsset::register($this);
-?>
 <?php $this->beginPage() ?>
+
 <!DOCTYPE html>
+
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
@@ -62,68 +63,53 @@ AppAsset::register($this);
             ?>
         </div>
 
-
-        <div >  
-        <?php 
-            echo SideNav::widget([
-                'type' => SideNav::TYPE_DEFAULT,
-                'heading' => 'Opções',
-                'options' => ['class' => 'sidenav-tammy'],   
-                'items' => [
-                    [
-                        'url' => '/site/index',
-                        'label' => 'Home',
-                        'icon' => 'home'
-                    ],
-                    [
-                        'label' => 'Monitoria',
-                        
-                        'icon' => 'book',
-                        //if (Yii::$app->user->identity->perfil == 0 ) {
-                            'items' => [
-                                ['label' => 'Cadastro', 'icon'=>'info-sign', 'url'=> Url::to(['/monitoria/create'])], 
-                                ['label' => 'Frequência Individual', 'icon'=>'book', 'url'=>Url::to(['/monitoria/freqindividual'])],
-                                ['label' => 'Relatório Semestral', 'icon'=>'book', 'url'=>Url::to(['/monitoria/index'])],
-                            ],
-                        //}
-                       // if (Yii::$app->user->identity->perfil == 1) {
-                            'items' => [
-                                ['label' => 'Cadastro', 'icon'=>'info-sign', 'url'=> Url::to(['/monitoria/create'])], 
-                                ['label' => 'Frequência Individual', 'icon'=>'book', 'url'=>Url::to(['/monitoria/freqindividual'])],
-                                ['label' => 'Relatório Semestral', 'icon'=>'book', 'url'=>Url::to(['/monitoria/index'])],
-                            ],
-                       // }
-                    ],
-                    [
-                        'label' => 'Aproveitamento de Estudos',
-                        
-                        'icon' => 'book',
-                        'items' => [
-                           ['label' => 'Fazer solicitação', 'icon'=>'info-sign', 'url'=>Url::to(['/aproveitamento/create'])],
-                                ['label' => 'Status de Solicitação', 'icon'=>'bullhorn', 'url'=>Url::to(['/aproveitamento/status'])],
-                        ],
-                    ],
-                ],
-            ]);
-        ?>
-                <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
-            <?=     $content    ?>
+        <div class="wrap">
+            <div class="col-sm-3">
+                <div class="sidebar-nav">
+                    <div class="navbar navbar-default" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        <span class="visible-xs navbar-brand">Sidebar Menu</span>
+                        </div>
+                        <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Monitoria <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="index.php?r=monitoria/create">Inscrição</a></li>
+                                        <li><a href="index.php?r=monitoria/frequenciaindividual">Frequência Individual</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Aproveitamento de Estudos<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="index.php?r=aproveitamento/create">Fazer Solicitação</a></li>
+                                        <li><a href="index.php?r=aproveitamento/status">Status de Solicitação</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="index.php?r=aluno/editardados">Atualizar Cadastro</a></li>
+                                <!-- <li><a href="#">Reviews <span class="badge">1,118</span></a></li> -->
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <?= Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
+                <?=     $content    ?>
+            </div>
         </div>
-    </div>
-
-
-
-
-
 
     <footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; IComp - Instituto de Computação <?= date('Y') ?> </p>
-
-            
         </div>
     </footer>
 
