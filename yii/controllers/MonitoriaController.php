@@ -5,8 +5,6 @@ namespace app\controllers;
 use Yii;
 use app\models\Monitoria;
 use app\models\MonitoriaSearch;
-use app\models\Aluno;
-use app\models\AlunoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,7 +13,6 @@ use app\models\DisciplinaSearch;
 use yii\helpers\ArrayHelper;
 use yii\db\Command;
 use app\models\CursoSearch;
-use app\assets\AppAsset;
 
 /**
  * MonitoriaController implements the CRUD actions for Monitoria model.
@@ -25,6 +22,28 @@ class MonitoriaController extends Controller
     public function behaviors()
     {
         return [
+            'acess' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','index','update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','index','update', 'view', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) 
+                        {
+                            if (!Yii::$app->user->isGuest)
+                            {
+                                if ( Yii::$app->user->identity->perfil === 1 ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 1; 
+                                }
+                                else  return Yii::$app->user->identity->perfil == 0; 
+                            }
+                            //else -> redirecionar para o site/login
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -69,27 +88,17 @@ class MonitoriaController extends Controller
     public function actionCreate()
     {
         $model = new Monitoria();
-        //$modelAluno = ArrayHelper::map(AlunoSearch::find()->all(), 'ID', 'nome');
         $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
-        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'ID', 'nome');
+        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'id', 'nomeDisciplina');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         } else {
-            $loginAluno = \Yii::$app->user->identity->login;
-            $Pesquisa = Aluno::findOne(['CPF' => $loginAluno]); 
-            if ($Pesquisa === null){
-                return $this->render('aviso');
-            }
-            else{
-
-                $model->IDAluno = $Pesquisa->ID;
-                return $this->render('create', [
-                    'model' => $model,
-                    'arrayDeCurso' => $arrayDeCurso,
-                    'arrayDeDisc'  => $arrayDeDisc,
-                ]);
-            }
+            return $this->render('create', [
+                'model' => $model,
+                'arrayDeCurso' => $arrayDeCurso,
+                'arrayDeDisc'  => $arrayDeDisc,
+            ]);
         }
     }
 
@@ -102,35 +111,24 @@ class MonitoriaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        
         $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
-        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'ID', 'nome');
+        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'id', 'nomeDisciplina');
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         } else {
-            $loginAluno = \Yii::$app->user->identity->login ;
-            $Pesquisa = Aluno::findOne(['CPF' => $loginAluno]);
-            if ($Pesquisa === null){
-                return $this->render('aviso');
-            }
-            else{
-                //$modelAluno = ArrayHelper::map(AlunoSearch::find()->one(['ID'=>]), 'ID', 'nome');
-                //$modelAluno = new Aluno();
-                $model->IDAluno = $Pesquisa->ID;
-                return $this->render('update', [
-                    'model' => $model,
-                    'arrayDeCurso' => $arrayDeCurso,
-                    'arrayDeDisc'  => $arrayDeDisc,
-                ]);
-            }
+            return $this->render('update', [
+                'model' => $model,
+                'arrayDeCurso' => $arrayDeCurso,
+                'arrayDeDisc'  => $arrayDeDisc,
+            ]);
         }
     }
 
     /**
      * Deletes an existing Monitoria model.
-     * If deleti4on is successful, the browser will be redirected to the 'index' page.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */

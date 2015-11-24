@@ -12,32 +12,16 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'codDisciplina')->textInput(['maxlength' => true, 'style'=>'width:130px']) ?>
 
-    <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nomeDisciplina')->textInput(['maxlength' => true, 'style'=>'width:600px']) ?>
 
-    <?= $form->field($model, 'IDCurso')->textInput() ?>
+    <?= $form->field($model, 'cargaHoraria')->textInput(['style'=>'width:130px']) ?>
 
-    <?= $form->field($model, 'IDProf')->textInput() ?>
-
-    <?= $form->field($model, 'ch')->textInput() ?>
-
-    <?= $form->field($model, 'credito')->textInput() ?>
-
-    <?= $form->field($model, 'periodo')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'qat')->textInput() ?>
-
-    <?= $form->field($model, 'qto')->textInput() ?>
-
-    <?= $form->field($model, 'codTurma')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'lab')->textInput() ?>
-
-
+    <?= $form->field($model, 'creditos')->textInput(['style'=>'width:130px']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Cadastrar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

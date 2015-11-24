@@ -28,8 +28,9 @@ class PeriodoAproveitamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dataInicio', 'dataFim', 'periodo'], 'required', 'message'=>'Este campo é obrigatório.'],
+            [['dataInicio', 'dataFim', 'periodo', 'ano'], 'required', 'message'=>'Este campo é obrigatório.'],
             [['dataInicio', 'dataFim'], 'safe'],
+            [['ano'], 'integer'],
             [['periodo'], 'string', 'max' => 10, 'min' => 1]
         ];
     }
@@ -43,7 +44,8 @@ class PeriodoAproveitamento extends \yii\db\ActiveRecord
             'ID' => 'ID',
             'dataInicio' => 'Data Inicial   ',
             'dataFim' => 'Data Final   ',
-            'periodo' => 'Período da Universidade',
+            'periodo' => 'Período Letivo',
+            'ano' => 'Ano',
         ];
     }
 }

@@ -17,6 +17,22 @@ class DisciplinaController extends Controller
     public function behaviors()
     {
         return [
+            'acess' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','index','update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','index','update', 'view', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if (!Yii::$app->user->isGuest)
+                            {
+                                return Yii::$app->user->identity->perfil == 1; // Só adms podem acessar esse controller
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -63,7 +79,7 @@ class DisciplinaController extends Controller
         $model = new Disciplina();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +98,7 @@ class DisciplinaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

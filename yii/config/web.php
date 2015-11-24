@@ -46,6 +46,10 @@ $config = [
                 ],
             ],
         ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'nullDisplay' => '',
+        ],
         'db' => require(__DIR__ . '/db.php'),
     ],
     'params' => $params,

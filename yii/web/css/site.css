@@ -10,6 +10,13 @@ body {
     padding: 0 0 60px;
 }
 
+.sidenavi {
+    padding: 18px 28px 15px 28px;
+    margin: 200px 1000px 700px 35px;
+}
+
+
+
 .wrap > .container {
     padding: 70px 15px 20px;
 }

@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\filters\AccessControl;
 
 /**
  * AlunoController implements the CRUD actions for Aluno model.
@@ -21,6 +22,22 @@ class AlunoController extends Controller
     public function behaviors()
     {
         return [
+            'acess' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','index','update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','index','update', 'view', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if (!Yii::$app->user->isGuest)
+                            {
+                                return Yii::$app->user->identity->perfil == 1; // Só adms podem acessar esse controller
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

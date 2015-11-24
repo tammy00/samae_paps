@@ -8,6 +8,7 @@ use app\models\PeriodoAproveitamentoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * PeriodoAproveitamentoController implements the CRUD actions for PeriodoAproveitamento model.
@@ -17,6 +18,22 @@ class PeriodoAproveitamentoController extends Controller
     public function behaviors()
     {
         return [
+            'acess' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','index','update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','index','update', 'view', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if (!Yii::$app->user->isGuest)
+                            {
+                                return Yii::$app->user->identity->perfil == 1; // Só adms podem acessar esse controller
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -51,6 +68,7 @@ class PeriodoAproveitamentoController extends Controller
         $m = $this->findModel($id);
         $m->dataInicio = Yii::$app->formatter->asDate($m->dataInicio, 'php:d-m-y');
         $m->dataFim = Yii::$app->formatter->asDate($m->dataFim, 'php:d-m-y');
+        
         //$m->dataFinal = Yii::$app->formatter->asDate($m->dataFinal, 'php:d-m-y');
         return $this->render('view', [
             'model' => $m,
@@ -66,14 +84,15 @@ class PeriodoAproveitamentoController extends Controller
     {
         $model = new PeriodoAproveitamento();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) 
+        if ($model->load(Yii::$app->request->post()) ) 
         {
-            if ( (strtotime($model->dataInicio) < time()) && ( strtotime($model->dataInicio) < strtotime($model->dataFim) ) 
-                && (strtotime($model->dataFim) > time() ) && (strtotime($model->dataInicio) != strtotime($model->dataFim)) )
+            if ( (strtotime($model->dataInicio) >= time()) && ( strtotime($model->dataInicio) < strtotime($model->dataFim) ) 
+                && (strtotime($model->dataFim) > time() ) && (strtotime($model->dataInicio) != strtotime($model->dataFim)) 
+                && $model->ano = date('Y', strtotime($model->dataInicio)) )
             {
-               // ( strtotime($model->dataFim) > time() )
                 $model->dataInicio = Yii::$app->formatter->asDate($model->dataInicio, 'php:Y-m-d');
                 $model->dataFim = Yii::$app->formatter->asDate($model->dataFim, 'php:Y-m-d');
+                //$model->ano = date('Y', strtotime($model->dataInicio));
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->ID]);
             }
@@ -100,7 +119,7 @@ class PeriodoAproveitamentoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) 
         {
-            if ( (strtotime($model->dataInicio) < time()) && ( strtotime($model->dataInicio) < strtotime($model->dataFim) ) 
+            if ( (strtotime($model->dataInicio) >= time()) && ( strtotime($model->dataInicio) < strtotime($model->dataFim) ) 
                 && (strtotime($model->dataFim) > time() ) && (strtotime($model->dataInicio) != strtotime($model->dataFim)) )
             {
                 $model->save();
@@ -141,7 +160,7 @@ class PeriodoAproveitamentoController extends Controller
         if (($model = PeriodoAproveitamento::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página requistada não existe.');
         }
     }
 }

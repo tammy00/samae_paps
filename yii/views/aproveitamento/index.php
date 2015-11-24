@@ -10,15 +10,23 @@ use yii\grid\GridView;
 $this->title = 'Aproveitamento de Estudos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="aproveitamento-index">
+<?php if(isset(Yii::$app->user->identity)){ ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
+	<div class="aproveitamento-index">
 
-    <div class="jumbotron">
-        <p>    <?= Html::a('Gerenciar período de solicitação', ['/periodo-aproveitamento/index'], ['class' => 'btn btn-success']) ?>    </p>
-        <p>    <?= Html::a('Fazer solicitação', ['create'], ['class' => 'btn btn-success']) ?>    </p>
-        <p>    <?= Html::a('Verificar status de uma solicitação', ['verificarstatus'], ['class' => 'btn btn-success']) ?>    </p>
-    </div>
+	    <h1><?= Html::encode($this->title) ?></h1>
+	    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
-</div>
+	    <div class="jumbotron">
+	    	<?php if(Yii::$app->user->identity->perfil == 1) { ?>
+		        <p>    <?= Html::a('Gerenciar período de solicitação', ['/periodo-aproveitamento/index'], ['class' => 'btn btn-success']) ?>    </p>
+		        <p>    <?= Html::a('Atualizar status de uma solicitação', ['atualizarstatus'], ['class' => 'btn btn-success']) ?>    </p>
+		     <?php } ?>
+		     <?php if(Yii::$app->user->identity->perfil == 0) { ?>
+		        <p>    <?= Html::a('Fazer solicitação', ['create'], ['class' => 'btn btn-success']) ?>    </p>
+		        <p>    <?= Html::a('Verificar status de uma solicitação', ['verificarstatus'], ['class' => 'btn btn-success']) ?>
+		     <?php } ?>
+	    </div>
+
+	</div>
+<?php } ?>

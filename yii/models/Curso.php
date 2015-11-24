@@ -45,7 +45,7 @@ class Curso extends \yii\db\ActiveRecord
         return [
             'ID' => 'ID',
             'sigla' => 'Sigla',
-            'nome' => 'Nome',
+            'nome' => 'Nome do Curso',
         ];
     }
 

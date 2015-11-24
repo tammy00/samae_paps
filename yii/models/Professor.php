@@ -42,7 +42,7 @@ class Professor extends \yii\db\ActiveRecord
     {
         return [
             'ID' => 'ID',
-            'Nome' => 'Nome',
+            'Nome' => 'Nome do Professor',
             'Email' => 'E-mail',
             'Telefone' => 'Telefone',
         ];

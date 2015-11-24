@@ -22,6 +22,26 @@ class AproveitamentoController extends Controller
     public function behaviors()
     {
         return [
+            'acess' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','index','update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','index','update', 'view', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) 
+                        {
+                            if (!Yii::$app->user->isGuest)
+                            {
+                                if ( Yii::$app->user->identity->perfil === 1 ) {
+                                    return Yii::$app->user->identity->perfil == 1; 
+                                }
+                                else  return Yii::$app->user->identity->perfil == 0; 
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
