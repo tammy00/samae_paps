@@ -20,7 +20,7 @@ use app\models\Curso;
 use app\models\CursoSearch;
 use app\models\Professor;
 use app\models\ProfessorSearch;
-use app\controllers\AccessControl;
+use yii\filters\AccessControl;
 
 /**
  * DisciplinaPeriodoController implements the CRUD actions for DisciplinaPeriodo model.

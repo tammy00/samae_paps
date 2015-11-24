@@ -8,7 +8,7 @@ use app\models\DisciplinaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\controllers\AccessControl;
+use yii\filters\AccessControl;
 
 /**
  * DisciplinaController implements the CRUD actions for Disciplina model.

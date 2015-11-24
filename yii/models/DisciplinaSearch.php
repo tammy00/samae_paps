@@ -18,8 +18,8 @@ class DisciplinaSearch extends Disciplina
     public function rules()
     {
         return [
-            [['ID', 'IDCurso', 'IDProf', 'ch', 'credito', 'qat', 'qto', 'lab', 'monitoria'], 'integer'],
-            [['nome', 'codigo', 'periodo', 'codTurma'], 'safe'],
+            [['ID', 'cargaHoraria', 'creditos'], 'integer'],
+            [['codDisciplina', 'nomeDisciplina'], 'safe'],
         ];
     }
 
@@ -57,19 +57,12 @@ class DisciplinaSearch extends Disciplina
 
         $query->andFilterWhere([
             'ID' => $this->ID,
-            'IDCurso' => $this->IDCurso,
-            'IDProf' => $this->IDProf,
-            'ch' => $this->ch,
-            'credito' => $this->credito,
-            'qat' => $this->qat,
-            'qto' => $this->qto,
-            'lab' => $this->lab,
+            'cargaHoraria' => $this->cargaHoraria,
+            'creditos' => $this->creditos,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome])
-            ->andFilterWhere(['like', 'codigo', $this->codigo])
-            ->andFilterWhere(['like', 'periodo', $this->periodo])
-            ->andFilterWhere(['like', 'codTurma', $this->codTurma]);
+        $query->andFilterWhere(['like', 'codDisciplina', $this->codDisciplina])
+            ->andFilterWhere(['like', 'nomeDisciplina', $this->nomeDisciplina]);
 
         return $dataProvider;
     }

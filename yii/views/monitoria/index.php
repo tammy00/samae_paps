@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php if(Yii::$app->user->identity->perfil == 1){ ?>
             <p> 
-                <?= Html::a('Selecionar Disciplinas', ['selecionardisciplinas'], ['class' => 'btn btn-success']) ?>   
+                <?= Html::a('Selecionar Disciplinas', ['/disciplina-periodo/index'], ['class' => 'btn btn-success']) ?>   
                 <?= Html::a('Fazer Plano Semestral', ['fazerplanosemestral'], ['class' => 'btn btn-success']) ?>    
             </p>
             <p> 
