@@ -7,13 +7,22 @@ use Yii;
 /**
  * This is the model class for table "disciplina".
  *
- * @property integer $id
- * @property string $codDisciplina
- * @property string $nomeDisciplina
- * @property integer $cargaHoraria
- * @property integer $creditos
+ * @property integer $ID
+ * @property string $nome
+ * @property string $codigo
+ * @property integer $IDCurso
+ * @property integer $IDProf
+ * @property integer $ch
+ * @property integer $credito
+ * @property string $periodo
+ * @property integer $qat
+ * @property integer $qto
+ * @property string $codTurma
+ * @property integer $lab
  *
- * @property DisciplinaPeriodo[] $disciplinaPeriodos
+ * @property Aluno[] $alunos
+ * @property Curso $iDCurso
+ * @property Monitoria[] $monitorias
  */
 class Disciplina extends \yii\db\ActiveRecord
 {
@@ -31,11 +40,12 @@ class Disciplina extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['codDisciplina', 'nomeDisciplina', 'cargaHoraria', 'creditos'], 'required', 'message'=>'Este campo é obrigatório'],
-            [['cargaHoraria', 'creditos'], 'integer'],
-            [['codDisciplina'], 'string', 'max' => 10],
-            [['nomeDisciplina'], 'string', 'max' => 150],
-            [['codDisciplina'], 'unique', 'message'=>'O código da disciplina já existe no sistema.']
+            [['nome', 'codigo', 'IDCurso', 'IDProf', 'ch', 'credito', 'periodo', 'qat', 'qto', 'codTurma'], 'required'],
+            [['IDCurso', 'IDProf', 'ch', 'credito', 'qat', 'qto', 'lab'], 'integer'],
+            [['nome'], 'string', 'max' => 150, 'min' => 20],
+            [['codigo'], 'string', 'max' => 7, 'min' => 6],
+            [['periodo'], 'string', 'max' => 6, 'min' => 6],
+            [['codTurma'], 'string', 'max' => 10, 'min' => 3]
         ];
     }
 
@@ -45,19 +55,47 @@ class Disciplina extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'codDisciplina' => 'Código Disciplina',
-            'nomeDisciplina' => 'Nome Disciplina',
-            'cargaHoraria' => 'Carga Horária',
-            'creditos' => 'Créditos',
+            'ID' => 'ID',
+            'nome' => 'Nome da disciplina',
+            'codigo' => 'Código',
+            'IDCurso' => 'ID Curso',
+            'IDProf' => 'ID Professor',
+            'ch' => 'Carga Horária',
+            'credito' => 'Crédito',
+            'periodo' => 'Período',
+            'qat' => 'QAT',
+            'qto' => 'QTO',
+            'codTurma' => 'Código da Turma',
+            'lab' => 'Laboratório?'
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDisciplinaPeriodos()
+    public function getAlunos()
     {
-        return $this->hasMany(DisciplinaPeriodo::className(), ['idDisciplina' => 'id']);
+        return $this->hasMany(Aluno::className(), ['IDDisc' => 'ID']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIDCurso()
+    {
+        return $this->hasOne(Curso::className(), ['ID' => 'IDCurso']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMonitorias()
+    {
+        return $this->hasMany(Monitoria::className(), ['IDDisc' => 'ID']);
+    }
+
+    public function getProfessores()
+    {
+        return $this->hasMany(Monitoria::className(), ['IDProf' => 'ID']);
     }
 }

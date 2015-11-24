@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'arrayDeDisc'  => $arrayDeDisc,
     ]) ?>
 
-    <br>Declaro para os devidos fins, que: <br>
+    Declaro para os devidos fins, que: <br>
 
     a) sou o (a) TITULAR da CONTA CORRENTE acima descrita:<br>
     b) a conclusão do meu curso de graduacao está prevista para o _________ semestre do ano de __ ______;<br>

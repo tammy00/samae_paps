@@ -8,7 +8,7 @@ use app\models\CursoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
+
 /**
  * CursoController implements the CRUD actions for Curso model.
  */
