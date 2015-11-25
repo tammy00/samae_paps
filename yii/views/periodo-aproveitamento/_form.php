@@ -23,7 +23,10 @@ use yii\jui\DatePicker;
         'dateFormat' => 'dd-MM-y',
     ]) ?>
 
-    <?= $form->field($model, 'periodo')->textInput(['style'=>'width:100px']) ?>
+    <?= $form->field($model, 'ano')->textInput(['style'=>'width:100px']) ?>
+
+
+    <?= $form->field($model, 'periodo')->dropDownList(['1' => '1', '2' => '2'], ['style'=>'width:60px']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

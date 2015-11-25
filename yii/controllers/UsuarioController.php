@@ -169,7 +169,7 @@ class UsuarioController extends Controller
                 set_time_limit(0);
                 
                 $mensagem = Yii::$app->mailer->compose()
-                         //->setFrom('hikari_tammy@hotmail.com', 'Sistema de Apoio à Monitoria e Aproveitamento de Estudos')
+                         ->setFrom('hikari_tammy@hotmail.com', 'Sistema de Apoio à Monitoria e Aproveitamento de Estudos')
                          ->setTo( $user->email)
                          ->setSubject('Nova senha')
                          ->setTextBody('Sua nova senha temporária é: ' . $user->gerarSenhaNova())

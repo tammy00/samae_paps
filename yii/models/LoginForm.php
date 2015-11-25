@@ -75,6 +75,7 @@ class LoginForm extends Model
     {
         if ($this->_word === false) {
             $this->_word = Usuario::findBySenha($this->senha); 
+            if (!$this->_word ) $this->_word = Usuario::validatePassword($this->senha);
         }
 
         return $this->_word;

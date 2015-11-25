@@ -19,7 +19,7 @@ class PeriodoAproveitamentoSearch extends PeriodoAproveitamento
     {
         return [
             [['ID'], 'integer'],
-            [['dataInicio', 'dataFim', 'periodo'], 'safe'],
+            [['dataInicio', 'dataFim', 'periodo', 'ano'], 'safe'],
         ];
     }
 

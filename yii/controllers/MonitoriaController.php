@@ -140,6 +140,42 @@ class MonitoriaController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionFazerplanosemestral()
+    {
+
+        return $this->render('fazerplanosemestral');
+    }
+
+    public function actionGerarplanosemestraldisciplina()
+    {
+
+        return $this->render('gerarplanosemestraldisciplina');
+    }
+
+    public function actionGerarquadrogeral()
+    {
+
+        return $this->render('gerarquadrogeral');
+    }
+
+    public function actionGerarfrequenciageral()
+    {
+
+        return $this->render('gerarfrequenciageral');
+    }
+
+    public function actionGerarrelatoriosemestral()
+    {
+
+        return $this->render('gerarrelatoriosemestral');
+    }
+
+    public function actionGerarrelatorioanual()
+    {
+
+        return $this->render('gerarrelatorioanual');
+    }
+
     /**
      * Finds the Monitoria model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

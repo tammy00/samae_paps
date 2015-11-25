@@ -21,6 +21,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dataFim') ?>
 
+    <?= $form->field($model, 'ano') ?>
+
     <?= $form->field($model, 'periodo') ?>
 
     <div class="form-group">

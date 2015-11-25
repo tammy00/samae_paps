@@ -19,7 +19,7 @@ class PeriodoInscricaoMonitoriaSearch extends PeriodoInscricaoMonitoria
     {
         return [
             [['ID'], 'integer'],
-            [['dataInicio', 'dataFim', 'periodo'], 'safe'],
+            [['dataInicio', 'dataFim', 'periodo', 'ano'], 'safe'],
         ];
     }
 
