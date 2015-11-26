@@ -18,7 +18,7 @@ class DisciplinaSearch extends Disciplina
     public function rules()
     {
         return [
-            [['ID', 'cargaHoraria', 'creditos'], 'integer'],
+            [['id', 'cargaHoraria', 'creditos'], 'integer'],
             [['codDisciplina', 'nomeDisciplina'], 'safe'],
         ];
     }
@@ -56,7 +56,7 @@ class DisciplinaSearch extends Disciplina
         }
 
         $query->andFilterWhere([
-            'ID' => $this->ID,
+            'id' => $this->id,
             'cargaHoraria' => $this->cargaHoraria,
             'creditos' => $this->creditos,
         ]);

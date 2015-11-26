@@ -16,7 +16,6 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
 
-
     <?= $form->field($model, 'numProcs') ?>
 
     <?= //$form->field($model, 'IDAluno') ?>

@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\db\Command;
 use yii\db\Expression;
-use yii\web\UploadedFile; 
+use yii\web\UploadedFile;
 use yii\bootstrap\Alert;
 
 use app\models\Disciplina;
@@ -185,7 +185,7 @@ class DisciplinaPeriodoController extends Controller
             $uploadExists = 0;
             
             if($model->file) {
-                $imagepath = 'uploads/files/';
+                $imagepath = 'uploads/disciplinas-periodo/';
                 $model->file_import = $imagepath .rand(10,1000).'-'.str_replace('','-',$model->file->name);
                 $bulkInsertArray = array();
                 $bulkInsertArray2 = array();

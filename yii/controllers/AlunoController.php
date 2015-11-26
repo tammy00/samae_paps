@@ -159,12 +159,15 @@ class AlunoController extends Controller
         {
             $cpf = Yii::$app->request->post('cpf');
             $aluno = Aluno::find()->where(['cpf' => $cpf])->one();
-            if ($aluno != null) 
+            if ($aluno != null)
             {
-                $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
-                $dados_aluno = Aluno::findOne(['CPF' => $cpf]);
+                if ($aluno->CPF === Yii::$app->user->identity->login) {
+                    $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
+                    $dados_aluno = Aluno::findOne(['CPF' => $cpf]);
 
-               return $this->redirect(['view', 'id' => $dados_aluno->ID]);
+                   return $this->redirect(['view', 'id' => $dados_aluno->ID]);
+               }
+               else return $this->render('editardados', ['erro' => 'O CPF informado não é seu.']);
             } 
             else // Aluno com o cpf informado não está cadastrado no sistema.
             {

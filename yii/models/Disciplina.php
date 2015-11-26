@@ -45,7 +45,7 @@ class Disciplina extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ID' => 'ID',
+            'id' => 'ID',
             'codDisciplina' => 'Código da Disciplina',
             'nomeDisciplina' => 'Nome da Disciplina',
             'cargaHoraria' => 'Carga Horária',

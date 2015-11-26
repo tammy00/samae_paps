@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
 use yii\db\Command;
 use app\models\CursoSearch;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 /**
  * MonitoriaController implements the CRUD actions for Monitoria model.
@@ -89,18 +90,44 @@ class MonitoriaController extends Controller
     public function actionCreate()
     {
         $model = new Monitoria();
-        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
-        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'ID', 'nomeDisciplina');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            //Arquivo Histórico
+            $model->file = UploadedFile::getInstance($model, 'file');
+            $model->file->saveAs('uploads/historicos/'.$model->file->baseName.'.'.$model->file->extension);
+            $model->pathArqHistorico = $model->file->name;
+            $model->file = 'uploads/historicos/'.$model->file->baseName.'.'.$model->file->extension;
+
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->ID]);
+            } else {
+
+                if ($model->errors) {
+                    Yii::$app->getSession()->setFlash('danger', $this->convert_multi_array($model->errors));
+                    //foreach ($model->getErrors() as $key => $value) {
+                    //    Yii::$app->getSession()->setFlash('danger', $key.' - '.$value);
+                    //}
+                    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+                        echo '<div class="alert alert-' . $key . '" role="alert">' . $message . '</div>';
+                    }
+                }
+            }
         } else {
+            //Número do Processo
+            $model->numProcs = date("Y").'/'.str_pad(strval($proxProcesso = Monitoria::find()->count() + 1), 6, '0', STR_PAD_LEFT);
+            //ID Aluno
+            $model->IDAluno = 20902175;
+
             return $this->render('create', [
                 'model' => $model,
-                'arrayDeCurso' => $arrayDeCurso,
-                'arrayDeDisc'  => $arrayDeDisc,
             ]);
         }
+    }
+
+    public function convert_multi_array($array) {
+      $out = implode("&",array_map(function($a) {return implode("~",$a);},$array));
+      return $out;
     }
 
     /**
@@ -112,17 +139,12 @@ class MonitoriaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $arrayDeCurso = ArrayHelper::map(CursoSearch::find()->all(), 'ID', 'nome');
-        $arrayDeDisc = ArrayHelper::map(DisciplinaSearch::find()->all(), 'ID', 'nomeDisciplina');
-
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->ID]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'arrayDeCurso' => $arrayDeCurso,
-                'arrayDeDisc'  => $arrayDeDisc,
             ]);
         }
     }
@@ -138,6 +160,17 @@ class MonitoriaController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionAcompanharmonitoria()
+    {
+        $searchModel = new MonitoriaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('acompanharmonitoria', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionFazerplanosemestral()

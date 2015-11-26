@@ -111,7 +111,6 @@ class DisciplinaPeriodo extends \yii\db\ActiveRecord
 
     
     public function validateFieldsUnique($attribute, $params) {
-        //parent::beforeValidate();
 
         $modelAux = DisciplinaPeriodo::findOne([
                 'idDisciplina' => $this->idDisciplina, 

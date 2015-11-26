@@ -16,7 +16,7 @@ use yii\jui\DatePicker;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<!-- <?php foreach (Yii::$app->session->getAllFlashes() as $key => $message) { echo '<div class="alert alert-' . $key . '" role="alert">' . $message . '</div>'; }?> -->
+<!-- <?php //foreach (Yii::$app->session->getAllFlashes() as $key => $message) { echo '<div class="alert alert-' . $key . '" role="alert">' . $message . '</div>'; }?> -->
 
 <div class="disciplina-periodo-form">
 
@@ -43,9 +43,17 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'anoPeriodo')->textInput(['style'=>'width:130px']) ?>
 
-    <?= $form->field($model, 'dataInicioPeriodo')->textInput(['style'=>'width:160px']) ?>
+    <?= $form->field($model, 'dataInicioPeriodo')->widget(\yii\jui\DatePicker::classname(), [
+        'language' => 'pt-BR',
+        //'dateFormat' => 'dd-MM-y',
+        'dateFormat' => 'yyyy-MM-dd',
+        ]) ?>
 
-    <?= $form->field($model, 'dataFimPeriodo')->textInput(['style'=>'width:160px']) ?>
+    <?= $form->field($model, 'dataFimPeriodo')->widget(\yii\jui\DatePicker::classname(), [
+        'language' => 'pt-BR',
+        //'dateFormat' => 'dd-MM-y',
+        'dateFormat' => 'yyyy-MM-dd',
+        ]) ?>
 
     <?= $form->field($model, 'usaLaboratorio')->checkbox() ?>
 

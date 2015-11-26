@@ -20,6 +20,9 @@ use Yii;
  */
 class Monitoria extends \yii\db\ActiveRecord
 {
+
+    public $file;
+
     /**
      * @inheritdoc
      */
@@ -36,7 +39,9 @@ class Monitoria extends \yii\db\ActiveRecord
         return [
             [['numProcs', 'IDAluno', 'IDDisc', 'IDCurso', 'bolsa'], 'required'],
             [['IDAluno', 'IDDisc', 'IDCurso', 'bolsa'], 'integer'],
-            [['numProcs'], 'string', 'max' => 150, 'min' => 7]
+            [['numProcs'], 'string', 'max' => 150, 'min' => 7],
+            [['file'], 'file', 'extensions' => 'pdf'],
+            [['pathArqHistorico'], 'string', 'max' => 250],
         ];
     }
 
@@ -48,10 +53,11 @@ class Monitoria extends \yii\db\ActiveRecord
         return [
             'ID' => 'ID',
             'numProcs' => 'Nº Processo',
-            'IDAluno' => 'ID Aluno',
-            'IDDisc' => 'ID Disciplina',
-            'IDCurso' => 'ID Curso',
-            'bolsa' => 'Bolsa',
+            'IDAluno' => 'Aluno',
+            'IDDisc' => 'Disciplina',
+            'IDCurso' => 'Curso',
+            'bolsa' => 'Bolsista',
+            'file' => 'Histórico em PDF',
         ];
     }
 
@@ -60,7 +66,7 @@ class Monitoria extends \yii\db\ActiveRecord
      */
     public function getIDDisc()
     {
-        return $this->hasOne(Disciplina::className(), ['ID' => 'IDDisc']);
+        return $this->hasOne(DisciplinaPeriodo::className(), ['id' => 'IDDisc']);
     }
 
     /**
@@ -76,19 +82,19 @@ class Monitoria extends \yii\db\ActiveRecord
      */
     public function getIDAluno()
     {
-        return $this->hasOne(Aluno::className(), ['matricula' => 'IDAluno']);
+        return $this->hasOne(Aluno::className(), ['ID' => 'IDAluno']);
     }
 
 
     public function afterFind()
     {
-        switch ($this->Bolsista)
+        switch ($this->bolsa)
         {
             case 0:
-                $this->Bolsista = 'Não';
+                $this->bolsa = 'Não';
                 break;
             case 1:
-                $this->Bolsista = 'Sim';
+                $this->bolsa = 'Sim';
                 break;
         }
     }

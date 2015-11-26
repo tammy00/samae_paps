@@ -88,7 +88,9 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
 
     public static function findBySenha($chave)
     {
-        return static::findOne(['senha' => $chave]);
+        $s = static::findOne(['senha' => $chave]);
+        if ($s) return $s;
+        else return static::findOne([trim('senha') => md5($chave)]);
     }
 
     /**
