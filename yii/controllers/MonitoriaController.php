@@ -15,6 +15,7 @@ use yii\db\Command;
 use app\models\CursoSearch;
 use yii\filters\AccessControl;
 use yii\web\UploadedFile;
+use app\models\PeriodoInscricao;
 
 /**
  * MonitoriaController implements the CRUD actions for Monitoria model.
@@ -26,10 +27,10 @@ class MonitoriaController extends Controller
         return [
             'acess' => [
                 'class' => AccessControl::className(),
-                'only' => ['create','index','update', 'view', 'delete'],
+                'only' => ['create','index','update', 'view', 'delete', 'minhasinscricoes'],
                 'rules' => [
                     [
-                        'actions' => ['create','index','update', 'view', 'delete'],
+                        'actions' => ['create','index','update', 'view', 'delete', 'minhasinscricoes'],
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) 
                         {
@@ -100,6 +101,9 @@ class MonitoriaController extends Controller
             $model->file = 'uploads/historicos/'.$model->file->baseName.'.'.$model->file->extension;
 
             if ($model->save()) {
+                $model->status = 0;  // MUDEI AQUIIIIIIIIII
+                $idperiodo = PeriodoInscricao::find()->orderBy(['ID' => SORT_DESC])->one();
+                $model->IDperiodoinscr = $idperiodo->ID;
                 return $this->redirect(['view', 'id' => $model->ID]);
             } else {
 
@@ -138,15 +142,19 @@ class MonitoriaController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (Yii::$app->user->identity->perfil == 1 && (Yii::$app->request->referrer) != '/monitoria/minhasinscricoes')
+        {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->ID]);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
         }
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**
@@ -157,9 +165,12 @@ class MonitoriaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->identity->perfil == 1) {
+            $this->findModel($id)->delete();
+            //$this->redirect(['index']);
+        } 
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     public function actionAcompanharmonitoria()
@@ -168,6 +179,17 @@ class MonitoriaController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('acompanharmonitoria', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+/** ADICIONANDO ESSA FUNCTION   *****/
+    public function actionMinhasinscricoes() // Diferenciar acesso com pesquisa
+    {
+        $searchModel = new MonitoriaSearch();
+        $dataProvider = $searchModel->searchInscricoes(Yii::$app->user->identity->login);
+
+        return $this->render('minhasinscricoes', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
