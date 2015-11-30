@@ -103,6 +103,7 @@ class Monitoria extends \yii\db\ActiveRecord
                 $this->status = 'Indeferido';
                 break;
         }
+        
         $info_periodo = PeriodoInscricaoMonitoria::find()->orderBy(['ID' => SORT_DESC])->one();  // Seleciona o último ID registrado na tabela
         $this->IDperiodoinscr = $info_periodo->ano.'/'.$info_periodo->periodo;                  // String do ano/período para views
 

@@ -20,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="jumbotron">
         <?php if(Yii::$app->user->identity->perfil == 0) { ?>
             <p> <?= Html::a('Inscrição', ['create'], ['class' => 'btn btn-success']) ?>   </p>
-            <p> <?= Html::a('Acompanhar Monitorias', ['acompanharmonitoria'], ['class' => 'btn btn-success']) ?> </p>
             <p> <?= Html::a('Minhas Inscrições', ['minhasinscricoes'], ['class' => 'btn btn-success']) ?> </p>
             <p> <?= Html::a('Frequência Individual', ['frequenciaindividual'], ['class' => 'btn btn-success']) ?> </p>
             <p> <?= Html::a('Gerar Relatório Semestral', ['gerarrelatoriosemestral'], ['class' => 'btn btn-success']) ?> </p>
@@ -33,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::a('Selecionar Disciplinas Monitoria', ['/disciplina-periodo/index'], ['class' => 'btn btn-success']) ?>
             </p>
             <p>
+                <?= Html::a('Inscrições Pendentes', ['pendencias'], ['class' => 'btn btn-success']) ?>
                 <?= Html::a('Fazer Plano Semestral', ['fazerplanosemestral'], ['class' => 'btn btn-success']) ?>
                 <?= Html::a('Gerar Plano Semestral da Disciplina', ['gerarplanosemestraldisciplina'], ['class' => 'btn btn-success']) ?>        
             </p>

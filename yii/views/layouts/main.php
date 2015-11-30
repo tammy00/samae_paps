@@ -31,7 +31,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Sistema de Apoio a Monitoria e Aproveitamento de Estudos',
+        'brandLabel' => 'Sistema de Apoio a Monitoria do IComp',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -41,7 +41,6 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Monitoria', 'url' => ['/monitoria/index']],
-            ['label' => 'Aproveitamento de Estudos', 'url' => ['/aproveitamento/index']],
             ['label' => 'Atualização de Cadastro', 'url' => ['/aluno/editardados']],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :

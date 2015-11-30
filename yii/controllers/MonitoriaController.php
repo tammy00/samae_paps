@@ -27,10 +27,10 @@ class MonitoriaController extends Controller
         return [
             'acess' => [
                 'class' => AccessControl::className(),
-                'only' => ['create','index','update', 'view', 'delete', 'minhasinscricoes'],
+                'only' => ['create','index','update', 'view', 'delete', 'minhasinscricoes', 'pendencias'],
                 'rules' => [
                     [
-                        'actions' => ['create','index','update', 'view', 'delete', 'minhasinscricoes'],
+                        'actions' => ['create','index','update', 'view', 'delete', 'minhasinscricoes', 'pendencias'],
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) 
                         {
@@ -60,6 +60,7 @@ class MonitoriaController extends Controller
      * Lists all Monitoria models.
      * @return mixed
      */
+    private $marcador = 1;
     public function actionIndex()
     {
         $searchModel = new MonitoriaSearch();
@@ -100,7 +101,8 @@ class MonitoriaController extends Controller
             $model->pathArqHistorico = $model->file->name;
             $model->file = 'uploads/historicos/'.$model->file->baseName.'.'.$model->file->extension;
 
-            if ($model->save()) {
+            if ($model->save()) 
+            {
                 $model->status = 0;  // MUDEI AQUIIIIIIIIII
                 $idperiodo = PeriodoInscricao::find()->orderBy(['ID' => SORT_DESC])->one();
                 $model->IDperiodoinscr = $idperiodo->ID;
@@ -142,13 +144,14 @@ class MonitoriaController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->identity->perfil == 1 && (Yii::$app->request->referrer) != '/monitoria/minhasinscricoes')
+        if ( (Yii::$app->request->referrer) != '/monitoria/minhasinscricoes')
         {
             $model = $this->findModel($id);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->load(Yii::$app->request->post()) && $model->save() ) {
                 return $this->redirect(['view', 'id' => $model->ID]);
             } else {
+
                 return $this->render('update', [
                     'model' => $model,
                 ]);
@@ -173,27 +176,40 @@ class MonitoriaController extends Controller
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-    public function actionAcompanharmonitoria()
-    {
-        $searchModel = new MonitoriaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('acompanharmonitoria', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
 /** ADICIONANDO ESSA FUNCTION   *****/
     public function actionMinhasinscricoes() // Diferenciar acesso com pesquisa
     {
         $searchModel = new MonitoriaSearch();
-        $dataProvider = $searchModel->searchInscricoes(Yii::$app->user->identity->login);
+        $dataProvider = $searchModel->searchInscricoes(Yii::$app->request->queryParams);
 
         return $this->render('minhasinscricoes', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionPendencias() 
+    {
+        $searchModel = new MonitoriaSearch();
+        $dataProvider = $searchModel->searchPendencias();
+
+        return $this->render('pendencias', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionStatus($model)
+    {
+        if (Yii::$app->user->identity->perfil == 1) 
+        {
+            if ($model->load(Yii::$app->request->post()) && $model->save() ) {
+                return $this->redirect(['view', 'id' => $model->ID]);
+            }
+            else $this->render('status', ['model' => $model]);
+        } 
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }   
 
     public function actionFazerplanosemestral()
     {
@@ -243,7 +259,7 @@ class MonitoriaController extends Controller
         if (($model = Monitoria::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página requisitada não existe.');
         }
     }
 }
