@@ -21,10 +21,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'IDperiodoinscr',
             'numProcs', 
-            'IDDisc',
-            'status',
+            //'IDDisc',
+            [
+                'attribute'=>'IDDisc', 
+                'value'=>'nomeDisciplina'
+            ],
+            'IDperiodoinscr',
+            [
+                'attribute'=>'bolsa', 
+                'value'=>'traducao_bolsa'
+            ],
+            [
+                'attribute'=>'status', 
+                'value'=>'traducao_status'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

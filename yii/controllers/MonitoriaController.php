@@ -16,6 +16,8 @@ use app\models\CursoSearch;
 use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 use app\models\PeriodoInscricao;
+use app\models\DisciplinaPeriodo;
+use app\models\DisciplinaPeriodoSearch;
 
 /**
  * MonitoriaController implements the CRUD actions for Monitoria model.
@@ -180,7 +182,7 @@ class MonitoriaController extends Controller
     public function actionMinhasinscricoes() // Diferenciar acesso com pesquisa
     {
         $searchModel = new MonitoriaSearch();
-        $dataProvider = $searchModel->searchInscricoes(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchAluno(Yii::$app->request->queryParams);
 
         return $this->render('minhasinscricoes', [
             'searchModel' => $searchModel,
