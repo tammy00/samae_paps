@@ -12,11 +12,9 @@ use app\models\PeriodoInscricaoMonitoria;
  * @property string $numProcs
  * @property integer $IDAluno
  * @property integer $IDDisc
- * @property integer $IDCurso
  * @property integer $bolsa
  *
  * @property DisciplinaPeriodo $disciplinaperiodo
- * @property Curso $curso
  * @property Aluno $aluno
  * @property PeriodoInscricaoMonitoria $periodoinscricao
  */
@@ -25,6 +23,7 @@ class Monitoria extends \yii\db\ActiveRecord
 
     public $file;
     public $nomeDisciplina;
+    public $nomeCurso;
     public $traducao_bolsa;
     public $traducao_status;
 
@@ -42,8 +41,9 @@ class Monitoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['numProcs', 'IDAluno', 'IDDisc', 'IDCurso', 'bolsa', 'status', 'IDperiodoinscr'], 'required'],
-            [['IDAluno', 'IDDisc', 'IDCurso', 'bolsa', 'status', 'IDperiodoinscr'], 'integer'],
+            [['numProcs', 'IDAluno', 'IDDisc', 'bolsa', 'status', 'IDperiodoinscr', 'semestreConclusao', 'anoConclusao', 'mediaFinal'], 'required'],
+            [['IDAluno', 'IDDisc', 'bolsa', 'status', 'IDperiodoinscr', 'semestreConclusao', 'anoConclusao'], 'integer'],
+            [['mediaFinal'], 'number'],
             [['numProcs'], 'string', 'max' => 150, 'min' => 7],
             [['file'], 'file', 'extensions' => 'pdf'],
             [['pathArqHistorico'], 'string', 'max' => 250],
@@ -60,11 +60,14 @@ class Monitoria extends \yii\db\ActiveRecord
             'numProcs' => 'Nº Processo',
             'IDAluno' => 'Aluno',
             'IDDisc' => 'Disciplina',
-            'IDCurso' => 'Curso',
             'bolsa' => 'Bolsista',
             'file' => 'Histórico em PDF',
             'status' => 'Status',
             'IDperiodoinscr' => 'Ano/período',
+            'semestreConclusao' => 'Semestre Previsão Conclusão',
+            'anoConclusao' => 'Ano Previsão Conclusão',
+            'mediaFinal' => 'Média Final',
+            'nomeCurso' => 'Curso da Monitoria',
         ];
     }
 
@@ -74,14 +77,6 @@ class Monitoria extends \yii\db\ActiveRecord
     public function getDisciplinaperiodo()
     {
         return $this->hasOne(DisciplinaPeriodo::className(), ['id' => 'IDDisc']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCurso()
-    {
-        return $this->hasOne(Curso::className(), ['ID' => 'IDCurso']);
     }
 
     /**
@@ -133,26 +128,7 @@ class Monitoria extends \yii\db\ActiveRecord
         $disciplina = Disciplina::find()->where(['id' => $disciplinaPeriodo->idDisciplina])->one();
         $this->nomeDisciplina = $disciplina->nomeDisciplina;
 
-        //$info_periodo = PeriodoInscricaoMonitoria::find()->orderBy(['ID' => SORT_DESC])->one();  // Seleciona o último ID registrado na tabela
-        //$this->IDperiodoinscr = $info_periodo->ano.'/'.$info_periodo->periodo;                  // String do ano/período para views
-
-        //$nomedisc = Disciplina::find()->where(['id' => $this->IDDisc])->one();  // Substitui ID pelo nome da disciplina
-        //$this->IDDisc = $nomedisc->nomeDisciplina;
-
-        //$nomealuno = Aluno::find()->where(['ID' => $this->IDAluno])->one(); // Substitui ID pelo nome do aluno
-        ///$this->IDAluno = $nomealuno->nome;
-
-        //$nomecurso = Curso::find()->where(['ID' => $this->IDCurso])->one(); // Substitui ID pelo nome do aluno
-        //$this->IDCurso = $nomecurso->nome;
-
-        //switch ($this->bolsa)
-        //{
-        //    case 0:
-        //        $this->bolsa = 'Não';
-        //        break;
-        //    case 1:
-        //        $this->bolsa = 'Sim';
-        //        break;
-        //}
+        $curso = Curso::find()->where(['ID' => $disciplinaPeriodo->idCurso])->one();
+        $this->nomeCurso = $curso->nome;
     }
 }

@@ -2,11 +2,15 @@
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use app\models\CursoSearch;
 use app\models\DisciplinaSearch;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
+/* @var string $periodo */
+/* @var string $matricula */
+/* @var string $banco */
+/* @var string $agencia */
+/* @var string $conta */
 
 $this->title = 'Atualização de registro: ' . ' ' . $model->numProcs;
 $this->params['breadcrumbs'][] = ['label' => 'Monitorias', 'url' => ['index']];
@@ -19,6 +23,11 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'periodo' => $periodo,
+        'matricula' => $matricula,
+        'banco' => $banco,
+        'agencia' => $agencia,
+        'conta' => $conta,
     ]) ?>
 
 </div>

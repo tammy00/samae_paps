@@ -12,12 +12,12 @@ use app\models\Disciplina;
 use app\models\DisciplinaSearch;
 use yii\helpers\ArrayHelper;
 use yii\db\Command;
-use app\models\CursoSearch;
 use yii\filters\AccessControl;
 use yii\web\UploadedFile;
-use app\models\PeriodoInscricao;
+use app\models\PeriodoInscricaoMonitoria;
 use app\models\DisciplinaPeriodo;
 use app\models\DisciplinaPeriodoSearch;
+use app\models\Aluno;
 
 /**
  * MonitoriaController implements the CRUD actions for Monitoria model.
@@ -103,12 +103,15 @@ class MonitoriaController extends Controller
             $model->pathArqHistorico = $model->file->name;
             $model->file = 'uploads/historicos/'.$model->file->baseName.'.'.$model->file->extension;
 
+            if ($model->validate()) {
+                //Número do Processo
+                $model->numProcs = date("Y").'/'.str_pad(strval($proxProcesso = Monitoria::find()->count() + 1), 6, '0', STR_PAD_LEFT);
+            }
+
             if ($model->save()) 
             {
-                $model->status = 0;  // MUDEI AQUIIIIIIIIII
-                $idperiodo = PeriodoInscricao::find()->orderBy(['ID' => SORT_DESC])->one();
-                $model->IDperiodoinscr = $idperiodo->ID;
                 return $this->redirect(['view', 'id' => $model->ID]);
+
             } else {
 
                 if ($model->errors) {
@@ -123,19 +126,29 @@ class MonitoriaController extends Controller
             }
         } else {
             //Número do Processo
-            $model->numProcs = date("Y").'/'.str_pad(strval($proxProcesso = Monitoria::find()->count() + 1), 6, '0', STR_PAD_LEFT);
-            //ID Aluno
-            $model->IDAluno = 20902175;
+            $model->numProcs = '[Novo]';
+
+            //Aluno - Pega aluno baseando-se no CPF do usuário logado
+            $aluno = Aluno::findOne(['CPF' => Yii::$app->user->identity->login]);
+            $model->IDAluno = $aluno->ID;
+
+            //Status - Aguardando Avaliação
+            $model->status = 0;
+
+            //Seleciona o último período de inscrição
+            $periodoInscricao = PeriodoInscricaoMonitoria::find()->orderBy(['ID' => SORT_DESC])->one();
+            $model->IDperiodoinscr = $periodoInscricao->ID;
+            $periodo = $periodoInscricao->ano.'/'.$periodoInscricao->periodo;
 
             return $this->render('create', [
                 'model' => $model,
+                'periodo' => $periodo,
+                'matricula' => $aluno->matricula,
+                'banco' => $aluno->banco,
+                'agencia' => $aluno->agencia,
+                'conta' => $aluno->conta,
             ]);
         }
-    }
-
-    public function convert_multi_array($array) {
-      $out = implode("&",array_map(function($a) {return implode("~",$a);},$array));
-      return $out;
     }
 
     /**
@@ -154,8 +167,20 @@ class MonitoriaController extends Controller
                 return $this->redirect(['view', 'id' => $model->ID]);
             } else {
 
+                //Aluno - Pega aluno baseando-se no CPF do usuário logado
+                $aluno = Aluno::findOne(['CPF' => Yii::$app->user->identity->login]);
+
+                //Seleciona o último período de inscrição
+                $periodoInscricao = PeriodoInscricaoMonitoria::find()->orderBy(['ID' => SORT_DESC])->one();
+                $periodo = $periodoInscricao->ano.'/'.$periodoInscricao->periodo;
+
                 return $this->render('update', [
                     'model' => $model,
+                    'periodo' => $periodo,
+                    'matricula' => $aluno->matricula,
+                    'banco' => $aluno->banco,
+                    'agencia' => $aluno->agencia,
+                    'conta' => $aluno->conta,
                 ]);
             }
         }
@@ -178,8 +203,23 @@ class MonitoriaController extends Controller
         return $this->redirect(Yii::$app->request->referrer);
     }
 
-/** ADICIONANDO ESSA FUNCTION   *****/
-    public function actionMinhasinscricoes() // Diferenciar acesso com pesquisa
+    /**
+     * Finds the Monitoria model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Monitoria the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Monitoria::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('A página requisitada não existe.');
+        }
+    }
+
+    public function actionMinhasinscricoes()
     {
         $searchModel = new MonitoriaSearch();
         $dataProvider = $searchModel->searchAluno(Yii::$app->request->queryParams);
@@ -249,19 +289,8 @@ class MonitoriaController extends Controller
         return $this->render('gerarrelatorioanual');
     }
 
-    /**
-     * Finds the Monitoria model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Monitoria the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Monitoria::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('A página requisitada não existe.');
-        }
+    public function convert_multi_array($array) {
+      $out = implode("&",array_map(function($a) {return implode("~",$a);},$array));
+      return $out;
     }
 }

@@ -18,7 +18,7 @@ use app\models\Disciplina;
 
     <?= $form->field($model, 'IDAluno')->textInput(['style'=>'width:200px', 'readonly' => true]) ?>
 
-        <?= $form->field($model, 'status')->dropDownList(['0' => 'Enviado/em avaliação', '1' => 'Deferido', '2' => 'Indeferido', 'style'=>'width:600px']); ?>
+        <?= $form->field($model, 'status')->dropDownList(['0' => 'Aguardando Avaliação', '1' => 'Deferido', '2' => 'Indeferido', 'style'=>'width:600px']); ?>
 
         <?= $form->field($model, 'bolsa')->checkbox() ?>
 

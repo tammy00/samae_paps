@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'IDDisc', 
                 'value'=>'nomeDisciplina'
             ],
+            'nomeCurso',
             'IDperiodoinscr',
             [
                 'attribute'=>'bolsa', 
