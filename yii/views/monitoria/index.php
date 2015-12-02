@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if(Yii::$app->user->identity->perfil == 0) { ?>
             <p> <?= Html::a('Inscrição', ['create'], ['class' => 'btn btn-success']) ?>   </p>
             <p> <?= Html::a('Minhas Inscrições', ['minhasinscricoes'], ['class' => 'btn btn-success']) ?> </p>
-            <p> <?= Html::a('Frequência Individual', ['frequenciaindividual'], ['class' => 'btn btn-success']) ?> </p>
+            <p> <?= Html::a('Frequência Individual', ['/frequencia/index'], ['class' => 'btn btn-success']) ?> </p>
             <p> <?= Html::a('Gerar Relatório Semestral', ['gerarrelatoriosemestral'], ['class' => 'btn btn-success']) ?> </p>
         <?php } ?>
 
