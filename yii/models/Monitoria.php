@@ -41,7 +41,7 @@ class Monitoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['numProcs', 'IDAluno', 'IDDisc', 'bolsa', 'status', 'IDperiodoinscr', 'semestreConclusao', 'anoConclusao', 'mediaFinal'], 'required'],
+            [['numProcs', 'IDAluno', 'IDDisc', 'bolsa', 'status', 'IDperiodoinscr', 'semestreConclusao', 'anoConclusao', 'mediaFinal'], 'required', 'message'=>'Este campo é obrigatório'],
             [['IDAluno', 'IDDisc', 'bolsa', 'status', 'IDperiodoinscr', 'semestreConclusao', 'anoConclusao'], 'integer'],
             [['mediaFinal'], 'number'],
             [['numProcs'], 'string', 'max' => 150, 'min' => 7],

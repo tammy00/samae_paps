@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 use yii\helpers\ArrayHelper;
 use app\models\Disciplina;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
@@ -50,8 +51,19 @@ use app\models\Disciplina;
         <?= $form->field($model, 'numProcs')->textInput(['maxlength' => 15, 'style'=>'width:130px', 'readonly' => true]) ?>
         <?php } ?>
 
+        <!--
         <?= $form->field($model, 'IDDisc')->dropDownList(ArrayHelper::map(Disciplina::find()->orderBy('nomeDisciplina')->asArray()->all(), 'id', 'nomeDisciplina'), 
         	['prompt'=>'Selecione a disciplina', 'style'=>'width:600px']); ?>
+        -->
+
+        <?= $form->field($model, 'IDDisc')->widget(Select2::classname(), [
+            'data' => ArrayHelper::map(Disciplina::find()->orderBy('nomeDisciplina')->asArray()->all(), 'id', 'nomeDisciplina'),
+            'language' => 'pt-BR',
+            'options' => ['placeholder' => 'Selecione a disciplina', 'style'=>'width:600px'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); ?>
 
         <?= $form->field($model, 'file')->fileInput() ?>
 

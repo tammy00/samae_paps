@@ -9,7 +9,8 @@ use app\models\ProfessorSearch;
 use app\models\Disciplina;
 use app\models\Curso;
 use app\models\Professor;
-use yii\jui\DatePicker;
+//use yii\jui\DatePicker;
+use dosamigos\datepicker\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\DisciplinaPeriodo */
@@ -43,17 +44,33 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'anoPeriodo')->textInput(['style'=>'width:130px']) ?>
 
-    <?= $form->field($model, 'dataInicioPeriodo')->widget(\yii\jui\DatePicker::classname(), [
-        'language' => 'pt-BR',
-        //'dateFormat' => 'dd-MM-y',
-        'dateFormat' => 'yyyy-MM-dd',
-        ]) ?>
+    <?= $form->field($model, 'dataInicioPeriodo')->widget(
+        DatePicker::className(), [
+        // inline too, not bad
+         'inline' => false, 
+        // modify template for custom rendering
+        //'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+        'template' => '{addon}{input}',
+        'options' => ['style'=>'width:130px'],
+        'clientOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd'
+            ]
+    ]) ?>
 
-    <?= $form->field($model, 'dataFimPeriodo')->widget(\yii\jui\DatePicker::classname(), [
-        'language' => 'pt-BR',
-        //'dateFormat' => 'dd-MM-y',
-        'dateFormat' => 'yyyy-MM-dd',
-        ]) ?>
+    <?= $form->field($model, 'dataFimPeriodo')->widget(
+        DatePicker::className(), [
+        // inline too, not bad
+         'inline' => false, 
+        // modify template for custom rendering
+        //'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+        'template' => '{addon}{input}',
+        'options' => ['style'=>'width:130px'],
+        'clientOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd'
+            ]
+    ]) ?>
 
     <?= $form->field($model, 'usaLaboratorio')->checkbox() ?>
 

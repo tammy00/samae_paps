@@ -19,7 +19,11 @@
         "yiisoft/yii2-bootstrap": "*",
         "fxp/composer-asset-plugin": "~1.0",
         "yiisoft/yii2-jui": "^2.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0"
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "philippfrenzel/yii2fullcalendar": "^2.4",
+        "kartik-v/yii2-krajee-base": "dev-master",
+        "kartik-v/yii2-widget-select2": "@dev",
+        "2amigos/yii2-date-picker-widget" : "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
