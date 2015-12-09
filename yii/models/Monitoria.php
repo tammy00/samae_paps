@@ -9,7 +9,6 @@ use app\models\PeriodoInscricaoMonitoria;
  * This is the model class for table "monitoria".
  *
  * @property integer $ID
- * @property string $numProcs
  * @property integer $IDAluno
  * @property integer $IDDisc
  * @property integer $bolsa
@@ -23,6 +22,7 @@ class Monitoria extends \yii\db\ActiveRecord
 
     public $file;
     public $nomeDisciplina;
+    public $nomeProfessor;
     public $nomeCurso;
     public $traducao_bolsa;
     public $traducao_status;
@@ -41,10 +41,9 @@ class Monitoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['numProcs', 'IDAluno', 'IDDisc', 'bolsa', 'status', 'IDperiodoinscr', 'semestreConclusao', 'anoConclusao', 'mediaFinal'], 'required', 'message'=>'Este campo é obrigatório'],
-            [['IDAluno', 'IDDisc', 'bolsa', 'status', 'IDperiodoinscr', 'semestreConclusao', 'anoConclusao'], 'integer'],
-            [['mediaFinal'], 'number'],
-            [['numProcs'], 'string', 'max' => 150, 'min' => 7],
+            [['IDAluno', 'IDDisc', 'status', 'IDperiodoinscr', 'semestreConclusao', 'anoConclusao', 'mediaFinal'], 'required', 'message'=>'Este campo é obrigatório'],
+            [['IDAluno', 'IDDisc', 'bolsa', 'status', 'IDperiodoinscr', 'semestreConclusao', 'anoConclusao', 'banco', 'agencia', 'conta'], 'integer', 'message'=>'O valor deve ser númerico'],
+            [['mediaFinal'], 'number', 'message'=>'O valor deve ser númerico. Use o ponto (.) como o separador decimal.'],
             [['file'], 'file', 'extensions' => 'pdf'],
             [['pathArqHistorico'], 'string', 'max' => 250],
         ];
@@ -57,17 +56,20 @@ class Monitoria extends \yii\db\ActiveRecord
     {
         return [
             'ID' => 'ID',
-            'numProcs' => 'Nº Processo',
             'IDAluno' => 'Aluno',
             'IDDisc' => 'Disciplina',
             'bolsa' => 'Bolsista',
-            'file' => 'Histórico em PDF',
+            'file' => 'Histórico Escolar (.PDF)',
             'status' => 'Status',
             'IDperiodoinscr' => 'Ano/período',
             'semestreConclusao' => 'Semestre Previsão Conclusão',
             'anoConclusao' => 'Ano Previsão Conclusão',
             'mediaFinal' => 'Média Final',
             'nomeCurso' => 'Curso da Monitoria',
+            'banco' => 'Código Banco',
+            'agencia' => 'Agência',
+            'conta' => 'Conta',
+            'datacriacao' => 'Data Criação'
         ];
     }
 

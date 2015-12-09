@@ -1,25 +1,34 @@
 <?php
 
+
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 use yii\helpers\ArrayHelper;
 use app\models\Disciplina;
+use app\models\DisciplinaMonitoria;
 use kartik\select2\Select2;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
 /* @var $form yii\widgets\ActiveForm */
+/* @var string $etapa */
 /* @var string $periodo */
 /* @var string $matricula */
-/* @var string $banco */
-/* @var string $agencia */
-/* @var string $conta */
+/* @var $searchModel app\models\DisciplinaMonitoriaSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
 ?>
 
 <?= DetailView::widget([
     'model' => $model,
     'attributes' => [
+        //[
+        //    'label' => 'Etapa',
+        //    'value' => $etapa . '/2'
+        //],
         [
             'label' => 'Aluno',
             'value' => Yii::$app->user->identity->nome
@@ -27,10 +36,6 @@ use kartik\select2\Select2;
         [
             'label' => 'Matrícula',
             'value' => $matricula
-        ],
-        [
-            'label' => 'Conta Corrente',
-            'value' => ($banco && $agencia && $conta ? 'Banco: ' . $banco . ' Agência: '. $agencia . ' Conta: '. $conta : '')
         ],
         [
             'label' => 'Período',
@@ -43,40 +48,79 @@ use kartik\select2\Select2;
     ],
 ]) ?>
 
+<h4><?= Html::encode('Selecione a Disciplina') ?></h4>
+
+<div>
+    <?= GridView::widget([
+        'id' => 'kvgrid',
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'containerOptions'=>['style'=>'overflow: auto'],
+        'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+        'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+        'bordered'=> true,
+        'condensed' => true,
+        'hover' => true,
+        'panel'=>[
+            'type' => GridView::TYPE_PRIMARY,
+            'heading' => '<i class="glyphicon glyphicon-book"></i>', //$heading
+            'footer' => false,
+        ],
+        'export'=> false,
+        'columns' => [
+            [
+                'class' => 'kartik\grid\RadioColumn',
+                'clearOptions' => ['class'=>'close', 'title'=>'Limpar Seleção'],
+                'width'=>'36px',
+                'headerOptions'=>['class'=>'kartik-sheet-style'],
+                'radioOptions' => function($model, $key, $index, $column) { return ['value' => $model->id]; }
+
+            ],
+            [
+                'attribute'=>'nomeDisciplina', 
+                'vAlign'=>'middle',
+                //'width'=>'180px',
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return Html::a($model->nomeDisciplina,  
+                        '#');
+                },
+                'filterType'=>GridView::FILTER_SELECT2,
+                'filter'=>ArrayHelper::map(DisciplinaMonitoria::find()->where(['numPeriodo' => $searchModel->numPeriodo, 'anoPeriodo' => $searchModel->anoPeriodo])->orderBy('nomeDisciplina')->asArray()->all(), 'nomeDisciplina', 'nomeDisciplina'), 
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'Disciplina'],
+                'format'=>'raw'
+            ],
+            //'nomeDisciplina',
+            'nomeCurso',
+            'nomeProfessor',
+            'codTurma',
+        ],
+    ]); ?>
+</div>
+
 <div class="monitoria-form">
 
-    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
-    
-        <?php if (!$model->isNewRecord) { ?>
-        <?= $form->field($model, 'numProcs')->textInput(['maxlength' => 15, 'style'=>'width:130px', 'readonly' => true]) ?>
-        <?php } ?>
+    <?php $form = ActiveForm::begin(); ?>
 
-        <!--
-        <?= $form->field($model, 'IDDisc')->dropDownList(ArrayHelper::map(Disciplina::find()->orderBy('nomeDisciplina')->asArray()->all(), 'id', 'nomeDisciplina'), 
-        	['prompt'=>'Selecione a disciplina', 'style'=>'width:600px']); ?>
-        -->
-
-        <?= $form->field($model, 'IDDisc')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(Disciplina::find()->orderBy('nomeDisciplina')->asArray()->all(), 'id', 'nomeDisciplina'),
-            'language' => 'pt-BR',
-            'options' => ['placeholder' => 'Selecione a disciplina', 'style'=>'width:600px'],
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ]); ?>
-
-        <?= $form->field($model, 'file')->fileInput() ?>
-
-        <?= $form->field($model, 'semestreConclusao')->textInput(['style'=>'width:100px']) ?>
-        <?= $form->field($model, 'anoConclusao')->textInput(['style'=>'width:100px']) ?>
-        <?= $form->field($model, 'mediaFinal')->textInput(['style'=>'width:100px']) ?>
-
-        <?= $form->field($model, 'bolsa')->checkbox() ?>
+        <?= $form->field($model, 'IDDisc')->hiddenInput()->label(false) ?>
+        <?= Html::hiddenInput('step', $etapa) ?>
 
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? 'Cadastrar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton('Continuar', ['class' => 'btn btn-success', 'id' => 'btnsubmit']) ?>
         </div>
 
-        <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+    //echo Yii::$app->homeUrl;
+    //echo Url::base();
+    //$this->registerJs('$("document").ready(function(){alert("Ola");});');
+    //$this->registerJs('$("#kvgrid").on("grid.radiochecked", function(ev, key, val) { $("#id").val(val); alert("id: " + $("#id").val()); });');
+    $this->registerJs('$("document").ready(function() { $("#btnsubmit").prop("disabled", true); });');
+    $this->registerJs('$("#kvgrid").on("grid.radiochecked", function(ev, key, val) { $("#monitoria-iddisc").val(val); $("#btnsubmit").prop("disabled", false); });');
+    $this->registerJs('$("#kvgrid").on("grid.radiocleared", function(ev, key, val) { $("#monitoria-iddisc").val(""); $("#btnsubmit").prop("disabled", true); });');
+?>

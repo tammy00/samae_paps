@@ -21,8 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'numProcs', 
-            //'IDDisc',
             [
                 'attribute'=>'IDDisc', 
                 'value'=>'nomeDisciplina'
@@ -38,7 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>'traducao_status'
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+                //'deleteOptions' => ['data-confirm'=>\Yii::t('app', 'Você realmente deseja deletar este item ' . strtolower($this->title) . '?')],
+            ],
         ],
     ]); ?>
 

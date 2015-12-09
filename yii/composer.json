@@ -23,6 +23,7 @@
         "philippfrenzel/yii2fullcalendar": "^2.4",
         "kartik-v/yii2-krajee-base": "dev-master",
         "kartik-v/yii2-widget-select2": "@dev",
+        "kartik-v/yii2-grid": "@dev",
         "2amigos/yii2-date-picker-widget" : "~1.0"
     },
     "require-dev": {

@@ -22,7 +22,7 @@ class MonitoriaSearch extends Monitoria
     {
         return [
             [['ID', 'IDAluno', 'IDperiodoinscr'], 'integer'],
-            [['numProcs', 'IDDisc', 'nomeCurso'], 'safe'],
+            [['IDDisc', 'nomeCurso'], 'safe'],
         ];
     }
 
@@ -110,8 +110,6 @@ class MonitoriaSearch extends Monitoria
             //'status' => $this->status,
             //'IDperiodoinscr' => $this->IDperiodoinscr,
         ]);
-
-        $query->andFilterWhere(['like', 'numProcs', $this->numProcs]);
 
         $query->andFilterWhere(['like', 'aluno.nome', $this->IDAluno]);
         $query->andFilterWhere(['like', 'disciplina.nomeDisciplina', $this->IDDisc]);

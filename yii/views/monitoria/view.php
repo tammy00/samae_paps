@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitoria */
 
-$this->title = $model->numProcs;
+$this->title = $model->ID;
 $this->params['breadcrumbs'][] = ['label' => 'Monitorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -32,8 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
           //  'ID',
-            'numProcs',
-            'IDCurso',
             'IDAluno',
             'IDDisc',
             'bolsa',

@@ -28,9 +28,11 @@ class PeriodoInscricaoMonitoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dataInicio', 'dataFim', 'periodo'], 'required', 'message'=>'Este campo é obrigatório.'],
+            [['dataInicio', 'dataFim', 'periodo', 'ano'], 'required', 'message'=>'Este campo é obrigatório.'],
             [['dataInicio', 'dataFim'], 'safe'],
-            [['periodo'], 'string', 'max' => 10, 'min' => 1]
+            [['periodo'], 'in', 'range' => [1,2]],
+            [['ano'], 'integer', 'min'=>2015],
+            [['ano'], 'length' => 4],
         ];
     }
 
